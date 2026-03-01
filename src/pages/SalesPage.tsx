@@ -13,7 +13,12 @@ type PathSegment = { id: string | null; name: string };
 
 type State =
   | { phase: 'BROWSING'; path: PathSegment[]; currentCategoryId: string | null }
-  | { phase: 'SALE_FORM'; path: PathSegment[]; currentCategoryId: string; product: Product }
+  | {
+      phase: 'SALE_FORM';
+      path: PathSegment[];
+      currentCategoryId: string;
+      product: Product;
+    }
   | {
       phase: 'CONFIRMED';
       productName: string;
@@ -48,13 +53,19 @@ function reducer(state: State, action: Action): State {
       if (state.phase !== 'BROWSING') return state;
       return {
         phase: 'BROWSING',
-        path: [...state.path, { id: action.categoryId, name: action.categoryName }],
+        path: [
+          ...state.path,
+          { id: action.categoryId, name: action.categoryName },
+        ],
         currentCategoryId: action.categoryId,
       };
     }
     case 'NAVIGATE_TO': {
-      if (state.phase !== 'BROWSING') return state;
-      const targetIndex = state.path.findIndex((s) => s.id === action.categoryId);
+      if (state.phase !== 'BROWSING' && state.phase !== 'SALE_FORM')
+        return state;
+      const targetIndex = state.path.findIndex(
+        (s) => s.id === action.categoryId,
+      );
       if (targetIndex === -1) return state;
       return {
         phase: 'BROWSING',
@@ -167,7 +178,12 @@ export function SalesPage({ sellerId }: SalesPageProps) {
     return (
       <div className={styles.page}>
         {recordError && <div className={styles.error}>{recordError}</div>}
-        <BreadcrumbNav path={state.path} onNavigate={() => dispatch({ type: 'CANCEL_SALE' })} />
+        <BreadcrumbNav
+          path={state.path}
+          onNavigate={(categoryId) =>
+            dispatch({ type: 'NAVIGATE_TO', categoryId })
+          }
+        />
         <SaleForm
           product={state.product}
           onSubmit={handleSubmitSale}
@@ -183,7 +199,9 @@ export function SalesPage({ sellerId }: SalesPageProps) {
       {dataError && <div className={styles.error}>{dataError}</div>}
       <BreadcrumbNav
         path={state.path}
-        onNavigate={(categoryId) => dispatch({ type: 'NAVIGATE_TO', categoryId })}
+        onNavigate={(categoryId) =>
+          dispatch({ type: 'NAVIGATE_TO', categoryId })
+        }
       />
       {dataLoading ? (
         <div className={styles.loading}>Loading...</div>
@@ -194,10 +212,16 @@ export function SalesPage({ sellerId }: SalesPageProps) {
           onSelectCategory={(categoryId) => {
             const cat = categories.find((c) => c.id === categoryId);
             if (cat) {
-              dispatch({ type: 'DRILL_DOWN', categoryId, categoryName: cat.name });
+              dispatch({
+                type: 'DRILL_DOWN',
+                categoryId,
+                categoryName: cat.name,
+              });
             }
           }}
-          onSelectProduct={(product) => dispatch({ type: 'SELECT_PRODUCT', product })}
+          onSelectProduct={(product) =>
+            dispatch({ type: 'SELECT_PRODUCT', product })
+          }
         />
       )}
     </div>
