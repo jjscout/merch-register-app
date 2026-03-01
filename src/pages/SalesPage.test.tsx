@@ -4,31 +4,60 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SalesPage } from './SalesPage';
 
 const mockCategories = [
-  { id: 'cat-1', name: 'T-Shirts', parent_id: null, sort_order: 0, created_at: '2024-01-01' },
-  { id: 'cat-2', name: 'Hoodies', parent_id: null, sort_order: 1, created_at: '2024-01-01' },
+  {
+    id: 'cat-1',
+    name: 'T-Shirts',
+    parent_id: null,
+    sort_order: 0,
+    created_at: '2024-01-01',
+  },
+  {
+    id: 'cat-2',
+    name: 'Hoodies',
+    parent_id: null,
+    sort_order: 1,
+    created_at: '2024-01-01',
+  },
 ];
 
 const mockSubCategories = [
-  { id: 'cat-3', name: 'Men', parent_id: 'cat-1', sort_order: 0, created_at: '2024-01-01' },
+  {
+    id: 'cat-3',
+    name: 'Men',
+    parent_id: 'cat-1',
+    sort_order: 0,
+    created_at: '2024-01-01',
+  },
 ];
 
 const mockProducts = [
-  { id: 'prod-1', category_id: 'cat-3', name: 'Large Tee', price_cents: 2500, active: true, sort_order: 0, created_at: '2024-01-01' },
+  {
+    id: 'prod-1',
+    category_id: 'cat-3',
+    name: 'Large Tee',
+    price_cents: 2500,
+    active: true,
+    sort_order: 0,
+    created_at: '2024-01-01',
+  },
 ];
 
 const mockRecordSale = vi.fn().mockResolvedValue({ id: 'sale-1' });
 
 vi.mock('../hooks/useCategories', () => ({
   useCategories: vi.fn((parentId: string | null) => {
-    if (parentId === null) return { categories: mockCategories, loading: false, error: null };
-    if (parentId === 'cat-1') return { categories: mockSubCategories, loading: false, error: null };
+    if (parentId === null)
+      return { categories: mockCategories, loading: false, error: null };
+    if (parentId === 'cat-1')
+      return { categories: mockSubCategories, loading: false, error: null };
     return { categories: [], loading: false, error: null };
   }),
 }));
 
 vi.mock('../hooks/useProducts', () => ({
   useProducts: vi.fn((categoryId: string | null) => {
-    if (categoryId === 'cat-3') return { products: mockProducts, loading: false, error: null };
+    if (categoryId === 'cat-3')
+      return { products: mockProducts, loading: false, error: null };
     return { products: [], loading: false, error: null };
   }),
 }));
@@ -123,6 +152,9 @@ describe('SalesPage', () => {
     // Should see confirmation
     expect(screen.getByText('Sale Recorded!')).toBeInTheDocument();
     expect(screen.getByText('Large Tee')).toBeInTheDocument();
+    expect(mockRecordSale).toHaveReturnedWith(
+      expect.objectContaining({ then: expect.any(Function) }),
+    );
 
     // Click done
     await user.click(screen.getByText('New Sale'));
@@ -130,5 +162,37 @@ describe('SalesPage', () => {
     // Back to root browsing
     expect(screen.getByText('T-Shirts')).toBeInTheDocument();
     expect(screen.getByText('Hoodies')).toBeInTheDocument();
+  });
+
+  it('stays on sale form when recording fails', async () => {
+    const { useRecordSale } = await import('../hooks/useRecordSale');
+    const mockUseRecordSale = vi.mocked(useRecordSale);
+
+    mockRecordSale.mockResolvedValue(null);
+    mockUseRecordSale.mockReturnValue({
+      recordSale: mockRecordSale,
+      loading: false,
+      error: 'Insert failed',
+    });
+
+    const user = userEvent.setup();
+    render(<SalesPage sellerId="seller-1" />);
+
+    // Browse to products
+    await user.click(screen.getByText('T-Shirts'));
+    await user.click(screen.getByText('Men'));
+
+    // Select product
+    await user.click(screen.getByText('Large Tee'));
+
+    // Submit sale
+    await user.click(screen.getByText('Record Sale'));
+
+    // Should remain on sale form (no transition to CONFIRMED)
+    expect(screen.getByText('Record Sale')).toBeInTheDocument();
+    expect(screen.queryByText('Sale Recorded!')).not.toBeInTheDocument();
+
+    // Error message should be displayed
+    expect(screen.getByText('Insert failed')).toBeInTheDocument();
   });
 });
