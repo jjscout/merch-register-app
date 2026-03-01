@@ -127,12 +127,12 @@ Step 1 (Scaffolding)
 
 ### Step 7: SalesPage + App Assembly
 
-- [ ] RED: Test `SalesPage` — state transitions: BROWSING→drill down→select product→SALE_FORM→confirm→CONFIRMED→back to root
-- [ ] GREEN: Implement `src/pages/SalesPage.tsx` with state machine (useState/useReducer)
-- [ ] Wire up `App.tsx`: seller dropdown (persisted in localStorage) + SalesPage
-- [ ] YELLOW: Refactor state management if needed
-- [ ] Basic responsive CSS for tablet use at merch stand
-- [ ] Commit: "feat: assemble full app with SalesPage and seller selection"
+- [x] RED: Test `SalesPage` — state transitions: BROWSING→drill down→select product→SALE_FORM→confirm→CONFIRMED→back to root
+- [x] GREEN: Implement `src/pages/SalesPage.tsx` with state machine (useState/useReducer)
+- [x] Wire up `App.tsx`: seller dropdown (persisted in localStorage) + SalesPage
+- [x] YELLOW: Refactor state management if needed
+- [x] Basic responsive CSS for tablet use at merch stand
+- [x] Commit: "feat: assemble full app with SalesPage and seller selection"
 
 ### Step 8: Seed Script + Data
 

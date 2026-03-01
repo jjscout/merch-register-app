@@ -23,3 +23,15 @@
   margin: 0;
   padding: 0;
 }
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+@media (max-width: 600px) {
+  :root {
+    font-size: 14px;
+  }
+}
