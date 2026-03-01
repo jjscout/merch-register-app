@@ -13,6 +13,7 @@ export function useCategories(parentId: string | null) {
     let cancelled = false;
 
     async function fetch() {
+      setCategories([]);
       setLoading(true);
       setError(null);
 

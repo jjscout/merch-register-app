@@ -13,6 +13,7 @@ export function useProducts(categoryId: string | null) {
     let cancelled = false;
 
     async function fetch() {
+      setProducts([]);
       setLoading(true);
       setError(null);
 
