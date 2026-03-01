@@ -76,14 +76,14 @@ Step 1 (Scaffolding)
 
 ### Step 2: Database Schema + Supabase Setup
 
-- [ ] Create `supabase/migrations/001_initial_schema.sql` with tables:
+- [x] Create `supabase/migrations/001_initial_schema.sql` with tables:
   - `sellers` (id UUID, name TEXT UNIQUE, created_at)
   - `categories` (id UUID, name TEXT, parent_id UUID self-ref nullable, sort_order INT) + index on parent_id
   - `products` (id UUID, category_id UUID FK, name TEXT, price_cents INT, active BOOL, sort_order INT) + index on category_id
   - `sales` (id UUID, product_id UUID FK, seller_id UUID FK, quantity INT >0, unit_price_cents INT >0, payment_method TEXT cash/card/other, sold_at TIMESTAMPTZ) + indexes
-- [ ] Add RLS: categories/products/sellers read-only for anon, sales read+insert for anon
+- [x] Add RLS: categories/products/sellers read-only for anon, sales read+insert for anon
 - [ ] Create Supabase project, run migration SQL in dashboard
-- [ ] Commit: "feat: add database schema migration"
+- [x] Commit: "feat: add database schema migration"
 
 ### Step 3: Types, Supabase Client, and Utilities
 
