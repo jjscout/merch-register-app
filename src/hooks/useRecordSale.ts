@@ -14,7 +14,7 @@ export function useRecordSale() {
 
     const { data, error: err } = await supabase
       .from('sales')
-      .insert(sale)
+      .insert(sale as never)
       .select()
       .single();
 

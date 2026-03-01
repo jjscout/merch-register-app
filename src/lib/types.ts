@@ -37,10 +37,28 @@ export interface Sale {
 export interface Database {
   public: {
     Tables: {
-      categories: { Row: Category; Insert: Omit<Category, 'id' | 'created_at'>; Update: Partial<Omit<Category, 'id' | 'created_at'>> };
-      products: { Row: Product; Insert: Omit<Product, 'id' | 'created_at'>; Update: Partial<Omit<Product, 'id' | 'created_at'>> };
-      sellers: { Row: Seller; Insert: Omit<Seller, 'id' | 'created_at'>; Update: Partial<Omit<Seller, 'id' | 'created_at'>> };
-      sales: { Row: Sale; Insert: Omit<Sale, 'id'>; Update: Partial<Omit<Sale, 'id'>> };
+      categories: {
+        Row: Category;
+        Insert: Omit<Category, 'id' | 'created_at'>;
+        Update: Partial<Omit<Category, 'id' | 'created_at'>>;
+      };
+      products: {
+        Row: Product;
+        Insert: Omit<Product, 'id' | 'created_at'>;
+        Update: Partial<Omit<Product, 'id' | 'created_at'>>;
+      };
+      sellers: {
+        Row: Seller;
+        Insert: Omit<Seller, 'id' | 'created_at'>;
+        Update: Partial<Omit<Seller, 'id' | 'created_at'>>;
+      };
+      sales: {
+        Row: Sale;
+        Insert: Omit<Sale, 'id'>;
+        Update: Partial<Omit<Sale, 'id'>>;
+      };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
   };
 }

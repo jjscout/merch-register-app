@@ -104,13 +104,24 @@ export function SalesPage({ sellerId }: SalesPageProps) {
     state.phase === 'BROWSING' || state.phase === 'SALE_FORM'
       ? state.currentCategoryId
       : null;
-  const { categories } = useCategories(
-    state.phase === 'BROWSING' ? currentCategoryId : null,
-  );
-  const { products } = useProducts(
-    state.phase === 'BROWSING' ? currentCategoryId : null,
-  );
-  const { recordSale, loading: recordingLoading } = useRecordSale();
+  const {
+    categories,
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useCategories(state.phase === 'BROWSING' ? currentCategoryId : null);
+  const {
+    products,
+    loading: productsLoading,
+    error: productsError,
+  } = useProducts(state.phase === 'BROWSING' ? currentCategoryId : null);
+  const {
+    recordSale,
+    loading: recordingLoading,
+    error: recordError,
+  } = useRecordSale();
+
+  const dataLoading = categoriesLoading || productsLoading;
+  const dataError = categoriesError || productsError || recordError;
 
   const handleSubmitSale = async (data: {
     quantity: number;
@@ -155,6 +166,7 @@ export function SalesPage({ sellerId }: SalesPageProps) {
   if (state.phase === 'SALE_FORM') {
     return (
       <div className={styles.page}>
+        {recordError && <div className={styles.error}>{recordError}</div>}
         <BreadcrumbNav path={state.path} onNavigate={() => dispatch({ type: 'CANCEL_SALE' })} />
         <SaleForm
           product={state.product}
@@ -168,21 +180,26 @@ export function SalesPage({ sellerId }: SalesPageProps) {
 
   return (
     <div className={styles.page}>
+      {dataError && <div className={styles.error}>{dataError}</div>}
       <BreadcrumbNav
         path={state.path}
         onNavigate={(categoryId) => dispatch({ type: 'NAVIGATE_TO', categoryId })}
       />
-      <CategoryGrid
-        categories={categories}
-        products={products}
-        onSelectCategory={(categoryId) => {
-          const cat = categories.find((c) => c.id === categoryId);
-          if (cat) {
-            dispatch({ type: 'DRILL_DOWN', categoryId, categoryName: cat.name });
-          }
-        }}
-        onSelectProduct={(product) => dispatch({ type: 'SELECT_PRODUCT', product })}
-      />
+      {dataLoading ? (
+        <div className={styles.loading}>Loading...</div>
+      ) : (
+        <CategoryGrid
+          categories={categories}
+          products={products}
+          onSelectCategory={(categoryId) => {
+            const cat = categories.find((c) => c.id === categoryId);
+            if (cat) {
+              dispatch({ type: 'DRILL_DOWN', categoryId, categoryName: cat.name });
+            }
+          }}
+          onSelectProduct={(product) => dispatch({ type: 'SELECT_PRODUCT', product })}
+        />
+      )}
     </div>
   );
 }

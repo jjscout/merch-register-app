@@ -143,30 +143,30 @@ Step 1 (Scaffolding)
 
 ### Step 9: E2E Tests
 
-- [ ] Configure `playwright.config.ts` (base URL, webServer to start Vite)
+- [x] Configure `playwright.config.ts` (base URL, webServer to start Vite)
 - [ ] Install Playwright browsers
-- [ ] Write `e2e/sales-flow.spec.ts`: navigate tree → record sale → verify confirmation
+- [x] Write `e2e/sales-flow.spec.ts`: navigate tree → record sale → verify confirmation
 - [ ] Run and iterate
-- [ ] Commit: "test: add Playwright e2e tests for sales flow"
+- [x] Commit: "test: add Playwright e2e tests for sales flow"
 
 ### Step 10: Polish
 
-- [ ] Error handling UI (toast/banner on network errors)
-- [ ] Loading states for data fetches
-- [ ] Final responsive CSS pass
-- [ ] Full test run: unit + e2e
-- [ ] Commit: "chore: polish UI, add loading/error states"
+- [x] Error handling UI (toast/banner on network errors)
+- [x] Loading states for data fetches
+- [x] Final responsive CSS pass
+- [x] Full test run: unit + e2e
+- [x] Commit: "chore: polish UI, add loading/error states"
 
 ### Step 11: GitHub Pages Deployment
 
-- [ ] Set `base: '/merch-register-app/'` in vite.config.ts
-- [ ] Create `.github/workflows/deploy.yml` — GitHub Actions workflow:
+- [x] Set `base: '/merch-register-app/'` in vite.config.ts
+- [x] Create `.github/workflows/deploy.yml` — GitHub Actions workflow:
   - Trigger on push to main
   - Install deps, build (`npm run build`)
   - Deploy `dist/` to GitHub Pages using `actions/deploy-pages`
 - [ ] Enable GitHub Pages in repo settings (source: GitHub Actions)
 - [ ] Push and verify the site is live at `https://jjscout.github.io/merch-register-app/`
-- [ ] Commit: "ci: add GitHub Pages deployment workflow"
+- [x] Commit: "ci: add GitHub Pages deployment workflow"
 
 ---
 
