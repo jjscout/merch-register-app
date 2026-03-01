@@ -118,12 +118,12 @@ Step 1 (Scaffolding)
 
 ### Step 6: UI Components — SaleForm + SaleConfirmation
 
-- [ ] RED: Test `SaleForm` — quantity stepper, payment method radios, submit with correct payload
-- [ ] GREEN: Implement `src/components/SaleForm.tsx` + CSS module
-- [ ] RED: Test `SaleConfirmation` — renders summary, calls onDone
-- [ ] GREEN: Implement `src/components/SaleConfirmation.tsx` + CSS module
-- [ ] YELLOW: Polish form UX
-- [ ] Commit: "feat: add SaleForm and SaleConfirmation components"
+- [x] RED: Test `SaleForm` — quantity stepper, payment method radios, submit with correct payload
+- [x] GREEN: Implement `src/components/SaleForm.tsx` + CSS module
+- [x] RED: Test `SaleConfirmation` — renders summary, calls onDone
+- [x] GREEN: Implement `src/components/SaleConfirmation.tsx` + CSS module
+- [x] YELLOW: Polish form UX
+- [x] Commit: "feat: add SaleForm and SaleConfirmation components"
 
 ### Step 7: SalesPage + App Assembly
 

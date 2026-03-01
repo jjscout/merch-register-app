@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.successIcon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: #c6f6d5;
+  color: #276749;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #276749;
+}
+
+.summary {
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row dt {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.row dd {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.paymentMethod {
+  text-transform: capitalize;
+}
+
+.doneButton {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #4299e1;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.15s ease;
+}
+
+.doneButton:hover {
+  background: #3182ce;
+}

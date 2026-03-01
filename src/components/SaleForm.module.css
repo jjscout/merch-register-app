@@ -1,0 +1,174 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.productInfo {
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.productName {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.unitPrice {
+  font-size: 1.125rem;
+  color: #718096;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.quantitySection {
+  text-align: center;
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stepperButton {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid #cbd5e0;
+  background: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+
+.stepperButton:hover {
+  border-color: #4299e1;
+  color: #4299e1;
+}
+
+.stepperButton:active {
+  background: #ebf8ff;
+}
+
+.quantityDisplay {
+  font-size: 2rem;
+  font-weight: 700;
+  min-width: 3rem;
+  text-align: center;
+  color: #1a202c;
+}
+
+.totalSection {
+  text-align: center;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 0.5rem;
+}
+
+.totalPrice {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2b6cb0;
+}
+
+.paymentSection {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.radioLabel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+
+.radioLabel:has(input:checked) {
+  border-color: #4299e1;
+  background: #ebf8ff;
+}
+
+.radioLabel input {
+  accent-color: #4299e1;
+}
+
+.radioText {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.cancelButton,
+.submitButton {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+}
+
+.cancelButton {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.cancelButton:hover {
+  background: #e2e8f0;
+}
+
+.submitButton {
+  background: #48bb78;
+  color: #fff;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #38a169;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
