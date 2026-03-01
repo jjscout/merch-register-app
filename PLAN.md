@@ -96,16 +96,16 @@ Step 1 (Scaffolding)
 
 ### Step 4: Data Hooks
 
-- [ ] RED: Test `useCategories` — mock supabase, returns categories for parentId (null=root)
-- [ ] GREEN: Implement `src/hooks/useCategories.ts`
-- [ ] RED: Test `useProducts` — mock supabase, returns products for categoryId
-- [ ] GREEN: Implement `src/hooks/useProducts.ts`
-- [ ] RED: Test `useSellers` — mock supabase, returns sellers list
-- [ ] GREEN: Implement `src/hooks/useSellers.ts`
-- [ ] RED: Test `useRecordSale` — mock supabase insert, verify payload
-- [ ] GREEN: Implement `src/hooks/useRecordSale.ts`
-- [ ] YELLOW: Review all hooks, ensure consistent error/loading pattern
-- [ ] Commit: "feat: add data hooks for categories, products, sellers, and sales"
+- [x] RED: Test `useCategories` — mock supabase, returns categories for parentId (null=root)
+- [x] GREEN: Implement `src/hooks/useCategories.ts`
+- [x] RED: Test `useProducts` — mock supabase, returns products for categoryId
+- [x] GREEN: Implement `src/hooks/useProducts.ts`
+- [x] RED: Test `useSellers` — mock supabase, returns sellers list
+- [x] GREEN: Implement `src/hooks/useSellers.ts`
+- [x] RED: Test `useRecordSale` — mock supabase insert, verify payload
+- [x] GREEN: Implement `src/hooks/useRecordSale.ts`
+- [x] YELLOW: Review all hooks, ensure consistent error/loading pattern
+- [x] Commit: "feat: add data hooks for categories, products, sellers, and sales"
 
 ### Step 5: UI Components — BreadcrumbNav + CategoryGrid
 
