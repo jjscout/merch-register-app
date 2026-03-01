@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# Merch Register App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight point-of-sale app for tracking merchandise sales at events. Sellers navigate a product tree (e.g. T-Shirts -> Men -> Tank -> Size L), record a sale with quantity and payment method, and the transaction is stored in Supabase.
 
-Currently, two official plugins are available:
+Built for tablet use at a merch stand with large tap-friendly buttons and minimal friction.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- **Frontend:** React 19 + TypeScript + Vite
+- **Backend:** Supabase (PostgreSQL free tier) with Row Level Security
+- **Styling:** CSS Modules
+- **Testing:** Vitest (unit) + Playwright (e2e)
+- **Deployment:** GitHub Pages via GitHub Actions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the ESLint configuration
+### Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js 18+
+- A [Supabase](https://supabase.com) account (free tier works)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Setup
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. **Clone and install:**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+   ```bash
+   git clone https://github.com/jjscout/merch-register-app.git
+   cd merch-register-app
+   npm install
+   ```
+
+2. **Set up Supabase:**
+   - Create a new project at [supabase.com](https://supabase.com)
+   - Open the **SQL Editor** and run the contents of `supabase/migrations/001_initial_schema.sql`
+   - Go to **Settings > API** and note your **Project URL**, **anon key**, and **service_role key**
+
+3. **Configure environment:**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Fill in the values:
+
+   ```
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+   ```
+
+4. **Seed the database:**
+
+   ```bash
+   npm run seed
+   ```
+
+5. **Start the dev server:**
+   ```bash
+   npm run dev
+   ```
+   The app runs at `http://localhost:5173/merch-register-app/`.
+
+> **Note:** The app works without Supabase configured — it shows setup instructions instead of crashing.
+
+## Scripts
+
+| Command              | Description                            |
+| -------------------- | -------------------------------------- |
+| `npm run dev`        | Start dev server                       |
+| `npm run build`      | Type-check and build for production    |
+| `npm run lint`       | Run ESLint                             |
+| `npm test`           | Run unit tests                         |
+| `npm run test:watch` | Run unit tests in watch mode           |
+| `npm run test:e2e`   | Run Playwright e2e tests               |
+| `npm run seed`       | Seed Supabase with sample product data |
+
+## How It Works
+
+1. **Select a seller** from the dropdown (persisted in localStorage)
+2. **Navigate the product tree** by tapping categories to drill down
+3. **Pick a product** to open the sale form
+4. **Set quantity and payment method** (cash, card, or other)
+5. **Confirm the sale** — it's recorded in Supabase with a snapshot of the current price
+
+Product data is organized as a category tree (adjacency list). Prices are stored in integer cents to avoid floating-point issues.
+
+## Project Structure
+
+```
+src/
+├── components/   # BreadcrumbNav, CategoryGrid, SaleForm, SaleConfirmation
+├── hooks/        # useCategories, useProducts, useSellers, useRecordSale
+├── lib/          # Supabase client, TypeScript types, formatCents utility
+├── pages/        # SalesPage (state machine: BROWSING → SALE_FORM → CONFIRMED)
+└── data/         # products.seed.json
+
+supabase/migrations/  # Database schema
+scripts/              # Seed script
+e2e/                  # Playwright tests
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Deployment
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+The app deploys to GitHub Pages automatically on push to `main` via GitHub Actions.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+To set up deployment:
+
+1. Go to your repo **Settings > Pages**
+2. Set source to **GitHub Actions**
+3. Push to `main`
+
+Live at: `https://jjscout.github.io/merch-register-app/`
