@@ -87,12 +87,12 @@ Step 1 (Scaffolding)
 
 ### Step 3: Types, Supabase Client, and Utilities
 
-- [ ] Create `src/lib/types.ts`: Category, Product, Seller, Sale, PaymentMethod, Database types
-- [ ] Create `src/lib/supabase.ts`: Supabase client singleton
-- [ ] RED: Write test for `formatCents` (2500→"$25.00", 99→"$0.99", 0→"$0.00")
-- [ ] GREEN: Implement `src/lib/format.ts`
-- [ ] YELLOW: Refactor if needed
-- [ ] Commit: "feat: add types, supabase client, and formatCents utility"
+- [x] Create `src/lib/types.ts`: Category, Product, Seller, Sale, PaymentMethod, Database types
+- [x] Create `src/lib/supabase.ts`: Supabase client singleton
+- [x] RED: Write test for `formatCents` (2500→"$25.00", 99→"$0.99", 0→"$0.00")
+- [x] GREEN: Implement `src/lib/format.ts`
+- [x] YELLOW: Refactor if needed
+- [x] Commit: "feat: add types, supabase client, and formatCents utility"
 
 ### Step 4: Data Hooks
 
