@@ -109,12 +109,12 @@ Step 1 (Scaffolding)
 
 ### Step 5: UI Components — BreadcrumbNav + CategoryGrid
 
-- [ ] RED: Test `BreadcrumbNav` — renders path segments, clicking calls onNavigate
-- [ ] GREEN: Implement `src/components/BreadcrumbNav.tsx` + CSS module
-- [ ] RED: Test `CategoryGrid` — renders items as buttons, products show price, clicking calls onSelect
-- [ ] GREEN: Implement `src/components/CategoryGrid.tsx` + CSS module (large tap-friendly grid)
-- [ ] YELLOW: Refine styles
-- [ ] Commit: "feat: add BreadcrumbNav and CategoryGrid components"
+- [x] RED: Test `BreadcrumbNav` — renders path segments, clicking calls onNavigate
+- [x] GREEN: Implement `src/components/BreadcrumbNav.tsx` + CSS module
+- [x] RED: Test `CategoryGrid` — renders items as buttons, products show price, clicking calls onSelect
+- [x] GREEN: Implement `src/components/CategoryGrid.tsx` + CSS module (large tap-friendly grid)
+- [x] YELLOW: Refine styles
+- [x] Commit: "feat: add BreadcrumbNav and CategoryGrid components"
 
 ### Step 6: UI Components — SaleForm + SaleConfirmation
 
