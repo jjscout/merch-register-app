@@ -4,8 +4,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import App from './App';
 
 const mockSellers = [
-  { id: 'seller-1', name: 'Alice', created_at: '2024-01-01' },
-  { id: 'seller-2', name: 'Bob', created_at: '2024-01-01' },
+  { id: 'seller-1', name: 'Alice', pin: '1111', created_at: '2024-01-01' },
+  { id: 'seller-2', name: 'Bob', pin: '2222', created_at: '2024-01-01' },
 ];
 
 vi.mock('./lib/supabase', () => ({

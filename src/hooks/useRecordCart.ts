@@ -6,6 +6,7 @@ interface RecordCartPayload {
   cart: CartItem[];
   sellerId: string;
   paymentMethod: PaymentMethod;
+  eventId?: string;
 }
 
 export function useRecordCart() {
@@ -33,6 +34,7 @@ export function useRecordCart() {
         unit_price_cents: item.product.price_cents,
         payment_method: payload.paymentMethod,
         sold_at: soldAt,
+        event_id: payload.eventId ?? null,
       }));
 
       const { data, error: err } = await supabase

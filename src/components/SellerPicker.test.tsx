@@ -5,9 +5,9 @@ import { SellerPicker } from './SellerPicker';
 import type { Seller } from '../lib/types';
 
 const mockSellers: Seller[] = [
-  { id: 'seller-1', name: 'Alice', created_at: '2024-01-01' },
-  { id: 'seller-2', name: 'Bob', created_at: '2024-01-01' },
-  { id: 'seller-3', name: 'Charlie', created_at: '2024-01-01' },
+  { id: 'seller-1', name: 'Alice', pin: '1111', created_at: '2024-01-01' },
+  { id: 'seller-2', name: 'Bob', pin: '2222', created_at: '2024-01-01' },
+  { id: 'seller-3', name: 'Charlie', pin: '3333', created_at: '2024-01-01' },
 ];
 
 describe('SellerPicker', () => {

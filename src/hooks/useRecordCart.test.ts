@@ -61,6 +61,7 @@ describe('useRecordCart', () => {
       quantity: 2,
       unit_price_cents: 2500,
       payment_method: 'cash',
+      event_id: null,
     });
     expect(rows[1]).toMatchObject({
       product_id: 'p2',
@@ -68,6 +69,7 @@ describe('useRecordCart', () => {
       quantity: 1,
       unit_price_cents: 1000,
       payment_method: 'cash',
+      event_id: null,
     });
     expect(returnValue).toEqual([{ id: 'sale-1' }, { id: 'sale-2' }]);
     expect(result.current.error).toBeNull();
@@ -124,6 +126,28 @@ describe('useRecordCart', () => {
     });
 
     expect(result.current.loading).toBe(false);
+  });
+
+  it('includes event_id in insert rows when provided', async () => {
+    const cart = [makeCartItem('p1', 2500, 1)];
+    mockSelect.mockResolvedValue({
+      data: [{ id: 'sale-1' }],
+      error: null,
+    });
+
+    const { result } = renderHook(() => useRecordCart());
+
+    await act(async () => {
+      await result.current.recordCart({
+        cart,
+        sellerId: 'seller-1',
+        paymentMethod: 'cash',
+        eventId: 'event-1',
+      });
+    });
+
+    const rows = mockInsert.mock.calls[0][0];
+    expect(rows[0].event_id).toBe('event-1');
   });
 
   it('uses same sold_at timestamp for all items', async () => {

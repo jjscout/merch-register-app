@@ -21,6 +21,16 @@ export interface Product {
 export interface Seller {
   id: string;
   name: string;
+  pin: string | null;
+  created_at: string;
+}
+
+export interface MerchEvent {
+  id: string;
+  name: string;
+  starts_at: string;
+  ends_at: string;
+  active: boolean;
   created_at: string;
 }
 
@@ -33,6 +43,7 @@ export interface Sale {
   id: string;
   product_id: string;
   seller_id: string;
+  event_id: string | null;
   quantity: number;
   unit_price_cents: number;
   payment_method: PaymentMethod;
@@ -61,6 +72,11 @@ export interface Database {
         Row: Sale;
         Insert: Omit<Sale, 'id'>;
         Update: Partial<Omit<Sale, 'id'>>;
+      };
+      events: {
+        Row: MerchEvent;
+        Insert: Omit<MerchEvent, 'id' | 'created_at'>;
+        Update: Partial<Omit<MerchEvent, 'id' | 'created_at'>>;
       };
     };
     Views: Record<string, never>;

@@ -38,8 +38,21 @@ interface SeedCategory {
   products?: SeedProduct[];
 }
 
+interface SeedSeller {
+  name: string;
+  pin: string;
+}
+
+interface SeedEvent {
+  name: string;
+  starts_at: string;
+  ends_at: string;
+  active: boolean;
+}
+
 interface SeedData {
-  sellers: string[];
+  sellers: SeedSeller[];
+  events: SeedEvent[];
   categories: SeedCategory[];
 }
 
@@ -47,11 +60,23 @@ interface SeedData {
 // Helpers
 // ---------------------------------------------------------------------------
 
-async function insertSellers(names: string[]): Promise<void> {
-  const rows = names.map((name) => ({ name }));
+async function insertSellers(sellers: SeedSeller[]): Promise<void> {
+  const rows = sellers.map((s) => ({ name: s.name, pin: s.pin }));
   const { error } = await supabase.from('sellers').insert(rows);
   if (error) throw new Error(`Failed to insert sellers: ${error.message}`);
-  console.log(`  Inserted ${names.length} seller(s)`);
+  console.log(`  Inserted ${sellers.length} seller(s)`);
+}
+
+async function insertEvents(events: SeedEvent[]): Promise<void> {
+  const rows = events.map((e) => ({
+    name: e.name,
+    starts_at: e.starts_at,
+    ends_at: e.ends_at,
+    active: e.active,
+  }));
+  const { error } = await supabase.from('events').insert(rows);
+  if (error) throw new Error(`Failed to insert events: ${error.message}`);
+  console.log(`  Inserted ${events.length} event(s)`);
 }
 
 async function insertCategory(
@@ -104,9 +129,7 @@ async function insertCategory(
         `Failed to insert products for "${cat.name}": ${prodError.message}`,
       );
     }
-    console.log(
-      `    ${productRows.length} product(s) under "${cat.name}"`,
-    );
+    console.log(`    ${productRows.length} product(s) under "${cat.name}"`);
   }
 }
 
@@ -115,7 +138,13 @@ async function insertCategory(
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
-  const seedPath = resolve(__dirname, '..', 'src', 'data', 'products.seed.json');
+  const seedPath = resolve(
+    __dirname,
+    '..',
+    'src',
+    'data',
+    'products.seed.json',
+  );
   const raw = readFileSync(seedPath, 'utf-8');
   const seed: SeedData = JSON.parse(raw);
 
@@ -125,7 +154,11 @@ async function main(): Promise<void> {
   console.log('Sellers:');
   await insertSellers(seed.sellers);
 
-  // 2. Categories + Products (recursive)
+  // 2. Events
+  console.log('\nEvents:');
+  await insertEvents(seed.events);
+
+  // 3. Categories + Products (recursive)
   console.log('\nCategories & Products:');
   for (const cat of seed.categories) {
     await insertCategory(cat, null);

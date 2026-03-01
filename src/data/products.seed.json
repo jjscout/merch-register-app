@@ -1,5 +1,17 @@
 {
-  "sellers": ["Alice", "Bob", "Charlie"],
+  "sellers": [
+    { "name": "Alice", "pin": "1111" },
+    { "name": "Bob", "pin": "2222" },
+    { "name": "Charlie", "pin": "3333" }
+  ],
+  "events": [
+    {
+      "name": "Summer Market 2025",
+      "starts_at": "2025-06-01T08:00:00Z",
+      "ends_at": "2025-09-01T20:00:00Z",
+      "active": true
+    }
+  ],
   "categories": [
     {
       "name": "T-Shirts",

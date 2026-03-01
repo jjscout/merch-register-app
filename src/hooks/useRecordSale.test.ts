@@ -26,6 +26,7 @@ describe('useRecordSale', () => {
     const saleData = {
       product_id: 'prod-1',
       seller_id: 'seller-1',
+      event_id: null,
       quantity: 2,
       unit_price_cents: 2500,
       payment_method: 'cash' as const,
@@ -58,6 +59,7 @@ describe('useRecordSale', () => {
       await result.current.recordSale({
         product_id: 'prod-1',
         seller_id: 'seller-1',
+        event_id: null,
         quantity: 1,
         unit_price_cents: 1000,
         payment_method: 'card',
@@ -85,6 +87,7 @@ describe('useRecordSale', () => {
       recordPromise = result.current.recordSale({
         product_id: 'prod-1',
         seller_id: 'seller-1',
+        event_id: null,
         quantity: 1,
         unit_price_cents: 1000,
         payment_method: 'cash',
