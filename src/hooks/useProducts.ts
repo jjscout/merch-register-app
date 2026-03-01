@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Product } from '../lib/types';
 
@@ -8,11 +8,7 @@ export function useProducts(categoryId: string | null) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (categoryId === null) {
-      setProducts([]);
-      setLoading(false);
-      return;
-    }
+    if (categoryId === null) return;
 
     let cancelled = false;
 
@@ -40,5 +36,13 @@ export function useProducts(categoryId: string | null) {
     };
   }, [categoryId]);
 
-  return { products, loading, error };
+  const result = useMemo(
+    () =>
+      categoryId === null
+        ? { products: [] as Product[], loading: false, error: null }
+        : { products, loading, error },
+    [categoryId, products, loading, error],
+  );
+
+  return result;
 }

@@ -7,9 +7,15 @@ const SELLER_STORAGE_KEY = 'merch-register-seller-id';
 
 function App() {
   const { sellers, loading } = useSellers();
-  const [sellerId, setSellerId] = useState<string>(() => {
+  const [storedSellerId, setStoredSellerId] = useState<string>(() => {
     return localStorage.getItem(SELLER_STORAGE_KEY) ?? '';
   });
+
+  // Derive the effective seller ID: use stored if valid, otherwise first seller
+  const sellerId =
+    sellers.length > 0 && sellers.find((s) => s.id === storedSellerId)
+      ? storedSellerId
+      : sellers[0]?.id ?? '';
 
   useEffect(() => {
     if (sellerId) {
@@ -17,19 +23,21 @@ function App() {
     }
   }, [sellerId]);
 
-  // Auto-select if only one seller or if stored seller still valid
-  useEffect(() => {
-    if (sellers.length > 0 && !sellers.find((s) => s.id === sellerId)) {
-      setSellerId(sellers[0].id);
-    }
-  }, [sellers, sellerId]);
+  const handleSellerChange = (id: string) => {
+    setStoredSellerId(id);
+    localStorage.setItem(SELLER_STORAGE_KEY, id);
+  };
 
   if (loading) {
     return <div className={styles.loading}>Loading...</div>;
   }
 
   if (sellers.length === 0) {
-    return <div className={styles.loading}>No sellers configured. Run the seed script first.</div>;
+    return (
+      <div className={styles.loading}>
+        No sellers configured. Run the seed script first.
+      </div>
+    );
   }
 
   return (
@@ -41,7 +49,7 @@ function App() {
           <select
             id="seller-select"
             value={sellerId}
-            onChange={(e) => setSellerId(e.target.value)}
+            onChange={(e) => handleSellerChange(e.target.value)}
           >
             {sellers.map((seller) => (
               <option key={seller.id} value={seller.id}>
