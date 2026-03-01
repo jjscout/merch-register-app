@@ -24,7 +24,12 @@ export function useRecordSale() {
         .select()
         .single();
 
-      setError(err?.message ?? null);
+      if (err) {
+        setError(err.message);
+        return null;
+      }
+
+      setError(null);
       return data;
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unknown error');

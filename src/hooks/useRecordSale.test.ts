@@ -36,12 +36,14 @@ describe('useRecordSale', () => {
 
     const { result } = renderHook(() => useRecordSale());
 
+    let returnValue: unknown;
     await act(async () => {
-      await result.current.recordSale(saleData);
+      returnValue = await result.current.recordSale(saleData);
     });
 
     expect(mockInsert).toHaveBeenCalledWith(saleData);
     expect(result.current.error).toBeNull();
+    expect(returnValue).toEqual(returnedSale);
   });
 
   it('handles errors during recording', async () => {
@@ -64,6 +66,7 @@ describe('useRecordSale', () => {
     });
 
     expect(result.current.error).toBe('Insert failed');
+    expect(result.current.loading).toBe(false);
   });
 
   it('tracks loading state', async () => {
