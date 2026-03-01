@@ -21,4 +21,8 @@ describe('formatCents', () => {
   it('formats large amounts', () => {
     expect(formatCents(10000)).toBe('$100.00');
   });
+
+  it('formats negative values', () => {
+    expect(formatCents(-2500)).toBe('-$25.00');
+  });
 });
