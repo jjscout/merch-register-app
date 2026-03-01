@@ -183,6 +183,58 @@ Step 1 (Scaffolding)
 
 ---
 
+## Manual Steps (post-implementation)
+
+All code is written. Complete these steps manually to get the app running:
+
+### 1. Fix husky pre-commit hook permissions
+```bash
+chmod +x .husky/pre-commit
+```
+
+### 2. Set up Supabase
+1. Create a free Supabase project at [supabase.com](https://supabase.com)
+2. Go to **SQL Editor** and paste the contents of `supabase/migrations/001_initial_schema.sql`, then run it
+3. Go to **Settings → API** and copy the **Project URL** and **anon key**
+4. Also copy the **service_role key** (needed for seeding only)
+5. Create a `.env` file from the template:
+   ```bash
+   cp .env.example .env
+   ```
+6. Fill in the values:
+   ```
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+   ```
+
+### 3. Seed the database
+```bash
+npm run seed
+```
+Verify data appears in the Supabase dashboard (Tables → categories, products, sellers).
+
+### 4. Install Playwright browsers (for e2e tests)
+```bash
+npx playwright install
+```
+
+### 5. Run e2e tests
+```bash
+npm run test:e2e
+```
+
+### 6. Deploy to GitHub Pages
+1. Go to your GitHub repo → **Settings → Pages**
+2. Set source to **GitHub Actions**
+3. Push to main:
+   ```bash
+   git push origin main
+   ```
+4. Verify the site is live at `https://jjscout.github.io/merch-register-app/`
+
+---
+
 ## Key Architecture Notes
 
 - **Product tree**: Adjacency list (parent_id) in `categories` table. Shallow tree (3-4 levels). Fetch one level at a time as user drills down.
