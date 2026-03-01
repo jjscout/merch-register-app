@@ -55,7 +55,7 @@ export function SaleForm({
           <button
             type="button"
             className={styles.stepperButton}
-            onClick={() => setQuantity((q) => q + 1)}
+            onClick={() => setQuantity((q) => Math.min(999, q + 1))}
             aria-label="Increase quantity"
           >
             +

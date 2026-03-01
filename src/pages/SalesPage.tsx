@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useReducer } from 'react';
 import type { Product, PaymentMethod } from '../lib/types';
 import { useCategories } from '../hooks/useCategories';
 import { useProducts } from '../hooks/useProducts';
@@ -130,10 +130,6 @@ export function SalesPage({ sellerId }: SalesPageProps) {
     loading: recordingLoading,
     error: recordError,
   } = useRecordSale();
-
-  useEffect(() => {
-    dispatch({ type: 'DONE' });
-  }, [sellerId]);
 
   const dataLoading = categoriesLoading || productsLoading;
   const dataError = categoriesError || productsError || recordError;

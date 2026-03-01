@@ -26,7 +26,6 @@ function App() {
 
   const handleSellerChange = (id: string) => {
     setStoredSellerId(id);
-    localStorage.setItem(SELLER_STORAGE_KEY, id);
   };
 
   if (!isSupabaseConfigured) {
@@ -91,7 +90,7 @@ function App() {
         </div>
       </header>
       <main>
-        <SalesPage sellerId={sellerId} />
+        <SalesPage key={sellerId} sellerId={sellerId} />
       </main>
     </div>
   );

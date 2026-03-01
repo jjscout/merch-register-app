@@ -34,6 +34,9 @@ export function useProducts(categoryId: string | null) {
     fetch();
     return () => {
       cancelled = true;
+      setProducts([]);
+      setLoading(false);
+      setError(null);
     };
   }, [categoryId]);
 
