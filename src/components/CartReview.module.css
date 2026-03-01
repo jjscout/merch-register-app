@@ -1,0 +1,177 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.itemList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+}
+
+.itemInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.itemName {
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.itemUnit {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.itemControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stepperButton {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 2px solid #cbd5e0;
+  background: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+}
+
+.stepperButton:hover {
+  border-color: #4299e1;
+  color: #4299e1;
+}
+
+.quantity {
+  font-size: 1.125rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  text-align: center;
+  color: #1a202c;
+}
+
+.itemTotal {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2b6cb0;
+  margin-left: auto;
+  min-width: 4rem;
+  text-align: right;
+}
+
+.removeButton {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.removeButton:hover {
+  background: #fecaca;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 0.5rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.totalLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.totalAmount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2b6cb0;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.continueButton,
+.checkoutButton {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+  min-height: 56px;
+}
+
+.continueButton {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.continueButton:hover {
+  background: #e2e8f0;
+}
+
+.checkoutButton {
+  background: #48bb78;
+  color: #fff;
+}
+
+.checkoutButton:hover {
+  background: #38a169;
+}

@@ -2,30 +2,51 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { SaleConfirmation } from './SaleConfirmation';
+import type { CartItem } from '../lib/types';
+
+const makeItem = (
+  id: string,
+  name: string,
+  priceCents: number,
+  qty: number,
+): CartItem => ({
+  product: {
+    id,
+    category_id: 'cat-1',
+    name,
+    price_cents: priceCents,
+    active: true,
+    sort_order: 0,
+    created_at: '2025-01-01T00:00:00Z',
+  },
+  quantity: qty,
+});
 
 describe('SaleConfirmation', () => {
-  it('renders product name, quantity, formatted total, and payment method', () => {
+  it('renders all items, total, and payment method', () => {
+    const items = [
+      makeItem('p1', 'Classic T-Shirt', 2500, 3),
+      makeItem('p2', 'Hoodie', 5000, 1),
+    ];
     render(
       <SaleConfirmation
-        productName="Classic T-Shirt"
-        quantity={3}
-        totalCents={7500}
+        items={items}
+        totalCents={12500}
         paymentMethod="card"
         onDone={vi.fn()}
       />,
     );
 
     expect(screen.getByText(/Classic T-Shirt/)).toBeInTheDocument();
-    expect(screen.getByText(/3/)).toBeInTheDocument();
-    expect(screen.getByText('$75.00')).toBeInTheDocument();
+    expect(screen.getByText(/Hoodie/)).toBeInTheDocument();
+    expect(screen.getByText('$125.00')).toBeInTheDocument();
     expect(screen.getByText(/card/i)).toBeInTheDocument();
   });
 
   it('shows a success message', () => {
     render(
       <SaleConfirmation
-        productName="Hoodie"
-        quantity={1}
+        items={[makeItem('p1', 'Hoodie', 4500, 1)]}
         totalCents={4500}
         paymentMethod="cash"
         onDone={vi.fn()}
@@ -40,8 +61,7 @@ describe('SaleConfirmation', () => {
     const onDone = vi.fn();
     render(
       <SaleConfirmation
-        productName="Hoodie"
-        quantity={1}
+        items={[makeItem('p1', 'Hoodie', 4500, 1)]}
         totalCents={4500}
         paymentMethod="cash"
         onDone={onDone}

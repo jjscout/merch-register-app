@@ -1,0 +1,166 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.itemList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.itemName {
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.itemDetail {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 0.5rem;
+}
+
+.totalLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.totalAmount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2b6cb0;
+}
+
+.sectionLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.paymentSection {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.radioLabel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+
+.radioLabel:has(input:checked) {
+  border-color: #4299e1;
+  background: #ebf8ff;
+}
+
+.radioLabel input {
+  accent-color: #4299e1;
+}
+
+.radioText {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.backButton,
+.confirmButton {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+  min-height: 56px;
+}
+
+.backButton {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.backButton:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.confirmButton {
+  background: #48bb78;
+  color: #fff;
+}
+
+.confirmButton:hover:not(:disabled) {
+  background: #38a169;
+}
+
+.confirmButton:disabled,
+.backButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

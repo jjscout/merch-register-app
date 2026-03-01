@@ -24,6 +24,11 @@ export interface Seller {
   created_at: string;
 }
 
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
 export interface Sale {
   id: string;
   product_id: string;

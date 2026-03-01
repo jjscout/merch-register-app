@@ -1,18 +1,16 @@
-import type { PaymentMethod } from '../lib/types';
+import type { CartItem, PaymentMethod } from '../lib/types';
 import { formatCents } from '../lib/format';
 import styles from './SaleConfirmation.module.css';
 
 interface SaleConfirmationProps {
-  productName: string;
-  quantity: number;
+  items: CartItem[];
   totalCents: number;
   paymentMethod: PaymentMethod;
   onDone: () => void;
 }
 
 export function SaleConfirmation({
-  productName,
-  quantity,
+  items,
   totalCents,
   paymentMethod,
   onDone,
@@ -23,14 +21,14 @@ export function SaleConfirmation({
       <h2 className={styles.heading}>Sale Recorded!</h2>
 
       <dl className={styles.summary}>
-        <div className={styles.row}>
-          <dt>Product</dt>
-          <dd>{productName}</dd>
-        </div>
-        <div className={styles.row}>
-          <dt>Quantity</dt>
-          <dd>{quantity}</dd>
-        </div>
+        {items.map(({ product, quantity }) => (
+          <div key={product.id} className={styles.row}>
+            <dt>{product.name}</dt>
+            <dd>
+              x{quantity} &mdash; {formatCents(quantity * product.price_cents)}
+            </dd>
+          </div>
+        ))}
         <div className={styles.row}>
           <dt>Total</dt>
           <dd>{formatCents(totalCents)}</dd>
