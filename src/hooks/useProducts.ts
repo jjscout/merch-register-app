@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Product } from '../lib/types';
 
 export function useProducts(categoryId: string | null) {
@@ -8,7 +8,7 @@ export function useProducts(categoryId: string | null) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (categoryId === null) return;
+    if (categoryId === null || !isSupabaseConfigured) return;
 
     let cancelled = false;
 

@@ -8,6 +8,7 @@ const mockIsNull = vi.fn();
 const mockOrder = vi.fn();
 
 vi.mock('../lib/supabase', () => ({
+  isSupabaseConfigured: true,
   supabase: {
     from: vi.fn(() => ({
       select: mockSelect,
@@ -18,13 +19,23 @@ vi.mock('../lib/supabase', () => ({
 describe('useCategories', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockSelect.mockReturnValue({ eq: mockEq, is: mockIsNull, order: mockOrder });
+    mockSelect.mockReturnValue({
+      eq: mockEq,
+      is: mockIsNull,
+      order: mockOrder,
+    });
     mockOrder.mockResolvedValue({ data: [], error: null });
   });
 
   it('fetches root categories when parentId is null', async () => {
     const categories = [
-      { id: '1', name: 'T-Shirts', parent_id: null, sort_order: 0, created_at: '2024-01-01' },
+      {
+        id: '1',
+        name: 'T-Shirts',
+        parent_id: null,
+        sort_order: 0,
+        created_at: '2024-01-01',
+      },
     ];
     mockIsNull.mockReturnValue({ order: mockOrder });
     mockOrder.mockResolvedValue({ data: categories, error: null });
@@ -42,7 +53,13 @@ describe('useCategories', () => {
 
   it('fetches child categories when parentId is provided', async () => {
     const categories = [
-      { id: '2', name: 'Men', parent_id: '1', sort_order: 0, created_at: '2024-01-01' },
+      {
+        id: '2',
+        name: 'Men',
+        parent_id: '1',
+        sort_order: 0,
+        created_at: '2024-01-01',
+      },
     ];
     mockEq.mockReturnValue({ order: mockOrder });
     mockOrder.mockResolvedValue({ data: categories, error: null });
@@ -59,7 +76,10 @@ describe('useCategories', () => {
 
   it('handles errors', async () => {
     mockIsNull.mockReturnValue({ order: mockOrder });
-    mockOrder.mockResolvedValue({ data: null, error: { message: 'Network error' } });
+    mockOrder.mockResolvedValue({
+      data: null,
+      error: { message: 'Network error' },
+    });
 
     const { result } = renderHook(() => useCategories(null));
 

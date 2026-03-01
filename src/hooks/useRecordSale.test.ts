@@ -6,6 +6,7 @@ const mockInsert = vi.fn();
 const mockSelectSingle = vi.fn();
 
 vi.mock('../lib/supabase', () => ({
+  isSupabaseConfigured: true,
   supabase: {
     from: vi.fn(() => ({
       insert: mockInsert,
@@ -16,7 +17,9 @@ vi.mock('../lib/supabase', () => ({
 describe('useRecordSale', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockInsert.mockReturnValue({ select: vi.fn().mockReturnValue({ single: mockSelectSingle }) });
+    mockInsert.mockReturnValue({
+      select: vi.fn().mockReturnValue({ single: mockSelectSingle }),
+    });
   });
 
   it('records a sale with correct payload', async () => {
@@ -42,7 +45,10 @@ describe('useRecordSale', () => {
   });
 
   it('handles errors during recording', async () => {
-    mockSelectSingle.mockResolvedValue({ data: null, error: { message: 'Insert failed' } });
+    mockSelectSingle.mockResolvedValue({
+      data: null,
+      error: { message: 'Insert failed' },
+    });
 
     const { result } = renderHook(() => useRecordSale());
 

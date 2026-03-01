@@ -7,6 +7,7 @@ const mockEq = vi.fn();
 const mockOrder = vi.fn();
 
 vi.mock('../lib/supabase', () => ({
+  isSupabaseConfigured: true,
   supabase: {
     from: vi.fn(() => ({
       select: mockSelect,
@@ -25,7 +26,15 @@ describe('useProducts', () => {
 
   it('fetches products for a category', async () => {
     const products = [
-      { id: '1', category_id: 'cat-1', name: 'Large Tee', price_cents: 2500, active: true, sort_order: 0, created_at: '2024-01-01' },
+      {
+        id: '1',
+        category_id: 'cat-1',
+        name: 'Large Tee',
+        price_cents: 2500,
+        active: true,
+        sort_order: 0,
+        created_at: '2024-01-01',
+      },
     ];
     mockOrder.mockResolvedValue({ data: products, error: null });
 

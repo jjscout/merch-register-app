@@ -6,6 +6,7 @@ const mockSelect = vi.fn();
 const mockOrder = vi.fn();
 
 vi.mock('../lib/supabase', () => ({
+  isSupabaseConfigured: true,
   supabase: {
     from: vi.fn(() => ({
       select: mockSelect,
@@ -38,7 +39,10 @@ describe('useSellers', () => {
   });
 
   it('handles errors', async () => {
-    mockOrder.mockResolvedValue({ data: null, error: { message: 'Fetch failed' } });
+    mockOrder.mockResolvedValue({
+      data: null,
+      error: { message: 'Fetch failed' },
+    });
 
     const { result } = renderHook(() => useSellers());
 
