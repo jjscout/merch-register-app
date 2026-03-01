@@ -17,11 +17,7 @@ const mockProduct: Product = {
 describe('SaleForm', () => {
   it('renders product name and price', () => {
     render(
-      <SaleForm
-        product={mockProduct}
-        onSubmit={vi.fn()}
-        onCancel={vi.fn()}
-      />,
+      <SaleForm product={mockProduct} onSubmit={vi.fn()} onCancel={vi.fn()} />,
     );
 
     expect(screen.getByText('Classic T-Shirt')).toBeInTheDocument();
@@ -30,11 +26,7 @@ describe('SaleForm', () => {
 
   it('defaults quantity to 1 and shows correct total', () => {
     render(
-      <SaleForm
-        product={mockProduct}
-        onSubmit={vi.fn()}
-        onCancel={vi.fn()}
-      />,
+      <SaleForm product={mockProduct} onSubmit={vi.fn()} onCancel={vi.fn()} />,
     );
 
     expect(screen.getByTestId('quantity-display')).toHaveTextContent('1');
@@ -44,14 +36,10 @@ describe('SaleForm', () => {
   it('increments quantity and updates total', async () => {
     const user = userEvent.setup();
     render(
-      <SaleForm
-        product={mockProduct}
-        onSubmit={vi.fn()}
-        onCancel={vi.fn()}
-      />,
+      <SaleForm product={mockProduct} onSubmit={vi.fn()} onCancel={vi.fn()} />,
     );
 
-    await user.click(screen.getByRole('button', { name: '+' }));
+    await user.click(screen.getByRole('button', { name: 'Increase quantity' }));
 
     expect(screen.getByTestId('quantity-display')).toHaveTextContent('2');
     expect(screen.getByTestId('total-price')).toHaveTextContent('$50.00');
@@ -60,39 +48,31 @@ describe('SaleForm', () => {
   it('decrements quantity but not below 1', async () => {
     const user = userEvent.setup();
     render(
-      <SaleForm
-        product={mockProduct}
-        onSubmit={vi.fn()}
-        onCancel={vi.fn()}
-      />,
+      <SaleForm product={mockProduct} onSubmit={vi.fn()} onCancel={vi.fn()} />,
     );
 
     // Increment to 3
-    await user.click(screen.getByRole('button', { name: '+' }));
-    await user.click(screen.getByRole('button', { name: '+' }));
+    await user.click(screen.getByRole('button', { name: 'Increase quantity' }));
+    await user.click(screen.getByRole('button', { name: 'Increase quantity' }));
     expect(screen.getByTestId('quantity-display')).toHaveTextContent('3');
 
     // Decrement to 2
-    await user.click(screen.getByRole('button', { name: '-' }));
+    await user.click(screen.getByRole('button', { name: 'Decrease quantity' }));
     expect(screen.getByTestId('quantity-display')).toHaveTextContent('2');
 
     // Decrement to 1
-    await user.click(screen.getByRole('button', { name: '-' }));
+    await user.click(screen.getByRole('button', { name: 'Decrease quantity' }));
     expect(screen.getByTestId('quantity-display')).toHaveTextContent('1');
 
     // Should not go below 1
-    await user.click(screen.getByRole('button', { name: '-' }));
+    await user.click(screen.getByRole('button', { name: 'Decrease quantity' }));
     expect(screen.getByTestId('quantity-display')).toHaveTextContent('1');
   });
 
   it('selects payment method via radio buttons', async () => {
     const user = userEvent.setup();
     render(
-      <SaleForm
-        product={mockProduct}
-        onSubmit={vi.fn()}
-        onCancel={vi.fn()}
-      />,
+      <SaleForm product={mockProduct} onSubmit={vi.fn()} onCancel={vi.fn()} />,
     );
 
     const cashRadio = screen.getByRole('radio', { name: 'Cash' });
@@ -116,15 +96,11 @@ describe('SaleForm', () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();
     render(
-      <SaleForm
-        product={mockProduct}
-        onSubmit={onSubmit}
-        onCancel={vi.fn()}
-      />,
+      <SaleForm product={mockProduct} onSubmit={onSubmit} onCancel={vi.fn()} />,
     );
 
     // Set quantity to 2
-    await user.click(screen.getByRole('button', { name: '+' }));
+    await user.click(screen.getByRole('button', { name: 'Increase quantity' }));
 
     // Select card payment
     await user.click(screen.getByRole('radio', { name: 'Card' }));
@@ -142,11 +118,7 @@ describe('SaleForm', () => {
     const user = userEvent.setup();
     const onCancel = vi.fn();
     render(
-      <SaleForm
-        product={mockProduct}
-        onSubmit={vi.fn()}
-        onCancel={onCancel}
-      />,
+      <SaleForm product={mockProduct} onSubmit={vi.fn()} onCancel={onCancel} />,
     );
 
     await user.click(screen.getByRole('button', { name: /cancel/i }));

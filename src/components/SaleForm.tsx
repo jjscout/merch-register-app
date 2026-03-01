@@ -30,7 +30,9 @@ export function SaleForm({
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.productInfo}>
         <h2 className={styles.productName}>{product.name}</h2>
-        <span className={styles.unitPrice}>{formatCents(product.price_cents)}</span>
+        <span className={styles.unitPrice}>
+          {formatCents(product.price_cents)}
+        </span>
       </div>
 
       <div className={styles.quantitySection}>
@@ -40,18 +42,21 @@ export function SaleForm({
             type="button"
             className={styles.stepperButton}
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            aria-label="-"
+            aria-label="Decrease quantity"
           >
             -
           </button>
-          <span className={styles.quantityDisplay} data-testid="quantity-display">
+          <span
+            className={styles.quantityDisplay}
+            data-testid="quantity-display"
+          >
             {quantity}
           </span>
           <button
             type="button"
             className={styles.stepperButton}
             onClick={() => setQuantity((q) => q + 1)}
-            aria-label="+"
+            aria-label="Increase quantity"
           >
             +
           </button>
