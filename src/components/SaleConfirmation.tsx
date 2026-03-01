@@ -43,7 +43,7 @@ export function SaleConfirmation({
         </div>
       </dl>
 
-      <button className={styles.doneButton} onClick={onDone}>
+      <button type="button" className={styles.doneButton} onClick={onDone}>
         New Sale
       </button>
     </div>
