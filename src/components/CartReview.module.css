@@ -11,7 +11,7 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .itemList {
@@ -28,7 +28,7 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border-light);
   border-radius: 0.5rem;
 }
 
@@ -40,12 +40,12 @@
 
 .itemName {
   font-weight: 600;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .itemUnit {
   font-size: 0.875rem;
-  color: #718096;
+  color: var(--color-text-muted);
 }
 
 .itemControls {
@@ -58,11 +58,11 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
-  border: 2px solid #cbd5e0;
-  background: #fff;
+  border: 2px solid var(--color-stepper-border);
+  background: var(--color-bg-panel);
   font-size: 1.25rem;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--color-text-heading);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -72,8 +72,8 @@
 }
 
 .stepperButton:hover {
-  border-color: #4299e1;
-  color: #4299e1;
+  border-color: var(--color-stepper-hover);
+  color: var(--color-stepper-hover);
 }
 
 .quantity {
@@ -81,13 +81,13 @@
   font-weight: 700;
   min-width: 1.5rem;
   text-align: center;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .itemTotal {
   font-size: 1rem;
   font-weight: 700;
-  color: #2b6cb0;
+  color: var(--color-text-accent);
   margin-left: auto;
   min-width: 4rem;
   text-align: right;
@@ -97,8 +97,8 @@
   width: 2.25rem;
   height: 2.25rem;
   border: none;
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--color-btn-danger-bg);
+  color: var(--color-btn-danger-text);
   border-radius: 50%;
   font-size: 1.25rem;
   font-weight: 700;
@@ -112,7 +112,7 @@
 }
 
 .removeButton:hover {
-  background: #fecaca;
+  background: var(--color-btn-danger-hover);
 }
 
 .totalRow {
@@ -120,15 +120,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: #f7fafc;
+  background: var(--color-bg-total);
   border-radius: 0.5rem;
-  border-top: 2px solid #e2e8f0;
+  border-top: 2px solid var(--color-border-light);
 }
 
 .totalLabel {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--color-text-label);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -136,7 +136,7 @@
 .totalAmount {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #2b6cb0;
+  color: var(--color-text-accent);
 }
 
 .actions {
@@ -159,19 +159,19 @@
 }
 
 .continueButton {
-  background: #edf2f7;
-  color: #4a5568;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-btn-secondary-text);
 }
 
 .continueButton:hover {
-  background: #e2e8f0;
+  background: var(--color-btn-secondary-hover);
 }
 
 .checkoutButton {
-  background: #48bb78;
+  background: var(--color-btn-primary-bg);
   color: #fff;
 }
 
 .checkoutButton:hover {
-  background: #38a169;
+  background: var(--color-btn-primary-hover);
 }

@@ -1,4 +1,82 @@
+/* ============================================================
+   Light theme tokens (default)
+   ============================================================ */
 :root {
+  /* Surface */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-tertiary: #f0f4ff;
+  --color-bg-hover: #f5f5f5;
+  --color-bg-active: #eee;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+  --color-bg-success: #c6f6d5;
+  --color-bg-error: #fee2e2;
+  --color-bg-panel: #fff;
+  --color-bg-total: #f7fafc;
+
+  /* Text */
+  --color-text: #213547;
+  --color-text-secondary: #555;
+  --color-text-muted: #666;
+  --color-text-label: #4a5568;
+  --color-text-heading: #1a202c;
+  --color-text-error: #991b1b;
+  --color-text-success: #276749;
+  --color-text-price: #2a7d2a;
+  --color-text-accent: #2b6cb0;
+
+  /* Borders */
+  --color-border: #ddd;
+  --color-border-light: #e2e8f0;
+  --color-border-lighter: #edf2f7;
+  --color-border-focus: #0066cc;
+  --color-border-active: #4299e1;
+
+  /* Buttons */
+  --color-btn-category-bg: #f0f4ff;
+  --color-btn-category-hover: #dce4f7;
+  --color-btn-category-active: #c8d4f0;
+  --color-btn-category-border: #d0d8f0;
+  --color-btn-primary-bg: #48bb78;
+  --color-btn-primary-hover: #38a169;
+  --color-btn-secondary-bg: #edf2f7;
+  --color-btn-secondary-text: #4a5568;
+  --color-btn-secondary-hover: #e2e8f0;
+  --color-btn-action-bg: #4299e1;
+  --color-btn-action-hover: #3182ce;
+  --color-btn-danger-bg: #fee2e2;
+  --color-btn-danger-text: #991b1b;
+  --color-btn-danger-hover: #fecaca;
+
+  /* Header */
+  --color-header-bg: #1a1a2e;
+  --color-header-text: #fff;
+  --color-header-muted: #cbd5e0;
+
+  /* Cart bar */
+  --color-cart-bar-bg: #276749;
+  --color-cart-bar-active: #22543d;
+  --color-cart-bar-badge-bg: #fff;
+  --color-cart-bar-badge-text: #276749;
+
+  /* Code / setup */
+  --color-code-bg: #e9ecef;
+
+  /* Radio / selection */
+  --color-radio-checked-bg: #ebf8ff;
+  --color-radio-accent: #4299e1;
+
+  /* Stepper */
+  --color-stepper-border: #cbd5e0;
+  --color-stepper-hover: #4299e1;
+  --color-stepper-active-bg: #ebf8ff;
+
+  /* Link */
+  --color-link: #0066cc;
+  --color-link-hover: #004499;
+  --color-link-hover-bg: #f0f0f0;
+
+  /* Font */
   font-family:
     system-ui,
     -apple-system,
@@ -8,12 +86,91 @@
     sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #213547;
-  background-color: #ffffff;
+  color: var(--color-text);
+  background-color: var(--color-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Dark theme tokens
+   ============================================================ */
+[data-theme='dark'] {
+  /* Surface */
+  --color-bg: #1a1a2e;
+  --color-bg-secondary: #16213e;
+  --color-bg-tertiary: #1e2a45;
+  --color-bg-hover: #253352;
+  --color-bg-active: #2a3a5c;
+  --color-bg-overlay: rgba(0, 0, 0, 0.7);
+  --color-bg-success: #1c3a2a;
+  --color-bg-error: #3b1a1a;
+  --color-bg-panel: #16213e;
+  --color-bg-total: #1e2a45;
+
+  /* Text */
+  --color-text: #e2e8f0;
+  --color-text-secondary: #a0aec0;
+  --color-text-muted: #8899aa;
+  --color-text-label: #a0aec0;
+  --color-text-heading: #f7fafc;
+  --color-text-error: #feb2b2;
+  --color-text-success: #9ae6b4;
+  --color-text-price: #68d391;
+  --color-text-accent: #63b3ed;
+
+  /* Borders */
+  --color-border: #2d3748;
+  --color-border-light: #2d3748;
+  --color-border-lighter: #2a3040;
+  --color-border-focus: #63b3ed;
+  --color-border-active: #63b3ed;
+
+  /* Buttons */
+  --color-btn-category-bg: #1e2a45;
+  --color-btn-category-hover: #253352;
+  --color-btn-category-active: #2a3a5c;
+  --color-btn-category-border: #2d3748;
+  --color-btn-primary-bg: #38a169;
+  --color-btn-primary-hover: #2f855a;
+  --color-btn-secondary-bg: #2d3748;
+  --color-btn-secondary-text: #a0aec0;
+  --color-btn-secondary-hover: #3a4a5e;
+  --color-btn-action-bg: #3182ce;
+  --color-btn-action-hover: #2b6cb0;
+  --color-btn-danger-bg: #3b1a1a;
+  --color-btn-danger-text: #feb2b2;
+  --color-btn-danger-hover: #4a2020;
+
+  /* Header */
+  --color-header-bg: #0f0f1e;
+  --color-header-text: #f7fafc;
+  --color-header-muted: #8899aa;
+
+  /* Cart bar */
+  --color-cart-bar-bg: #22543d;
+  --color-cart-bar-active: #1a4030;
+  --color-cart-bar-badge-bg: #f7fafc;
+  --color-cart-bar-badge-text: #22543d;
+
+  /* Code / setup */
+  --color-code-bg: #2d3748;
+
+  /* Radio / selection */
+  --color-radio-checked-bg: #1a365d;
+  --color-radio-accent: #63b3ed;
+
+  /* Stepper */
+  --color-stepper-border: #4a5568;
+  --color-stepper-hover: #63b3ed;
+  --color-stepper-active-bg: #1a365d;
+
+  /* Link */
+  --color-link: #63b3ed;
+  --color-link-hover: #90cdf4;
+  --color-link-hover-bg: #1e2a45;
 }
 
 *,

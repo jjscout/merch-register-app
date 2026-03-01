@@ -11,7 +11,7 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .itemList {
@@ -28,17 +28,17 @@
   justify-content: space-between;
   align-items: baseline;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--color-border-lighter);
 }
 
 .itemName {
   font-weight: 600;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .itemDetail {
   font-size: 0.875rem;
-  color: #718096;
+  color: var(--color-text-muted);
 }
 
 .totalRow {
@@ -46,14 +46,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: #f7fafc;
+  background: var(--color-bg-total);
   border-radius: 0.5rem;
 }
 
 .totalLabel {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--color-text-label);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -61,14 +61,14 @@
 .totalAmount {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #2b6cb0;
+  color: var(--color-text-accent);
 }
 
 .sectionLabel {
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--color-text-label);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
@@ -92,7 +92,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--color-border-light);
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -100,22 +100,22 @@
 }
 
 .radioLabel:has(input:checked) {
-  border-color: #4299e1;
-  background: #ebf8ff;
+  border-color: var(--color-border-active);
+  background: var(--color-radio-checked-bg);
 }
 
 .radioLabel input {
-  accent-color: #4299e1;
+  accent-color: var(--color-radio-accent);
 }
 
 .radioText {
   font-weight: 600;
-  color: #2d3748;
+  color: var(--color-text-heading);
 }
 
 .error {
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--color-bg-error);
+  color: var(--color-text-error);
   padding: 0.75rem 1rem;
   border-radius: 6px;
   font-size: 0.875rem;
@@ -142,21 +142,21 @@
 }
 
 .backButton {
-  background: #edf2f7;
-  color: #4a5568;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-btn-secondary-text);
 }
 
 .backButton:hover:not(:disabled) {
-  background: #e2e8f0;
+  background: var(--color-btn-secondary-hover);
 }
 
 .confirmButton {
-  background: #48bb78;
+  background: var(--color-btn-primary-bg);
   color: #fff;
 }
 
 .confirmButton:hover:not(:disabled) {
-  background: #38a169;
+  background: var(--color-btn-primary-hover);
 }
 
 .confirmButton:disabled,

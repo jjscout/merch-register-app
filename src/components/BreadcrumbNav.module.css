@@ -19,14 +19,14 @@
 }
 
 .separator {
-  color: #666;
+  color: var(--color-text-muted);
   margin: 0 0.25rem;
 }
 
 .link {
   background: none;
   border: none;
-  color: #0066cc;
+  color: var(--color-link);
   cursor: pointer;
   font-size: inherit;
   padding: 0.25rem 0.5rem;
@@ -35,17 +35,17 @@
 }
 
 .link:hover {
-  color: #004499;
-  background-color: #f0f0f0;
+  color: var(--color-link-hover);
+  background-color: var(--color-link-hover-bg);
 }
 
 .link:focus-visible {
-  outline: 2px solid #0066cc;
+  outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
 
 .current {
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-heading);
   padding: 0.25rem 0.5rem;
 }

@@ -13,8 +13,8 @@
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  background: #c6f6d5;
-  color: #276749;
+  background: var(--color-bg-success);
+  color: var(--color-text-success);
   font-size: 2rem;
   display: flex;
   align-items: center;
@@ -25,14 +25,14 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #276749;
+  color: var(--color-text-success);
 }
 
 .summary {
   width: 100%;
   margin: 0;
   padding: 1rem;
-  background: #f7fafc;
+  background: var(--color-bg-total);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@
 .row dt {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #718096;
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -57,7 +57,7 @@
   margin: 0;
   font-size: 1.125rem;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .paymentMethod {
@@ -69,7 +69,7 @@
   padding: 1rem;
   border: none;
   border-radius: 0.5rem;
-  background: #4299e1;
+  background: var(--color-btn-action-bg);
   color: #fff;
   font-size: 1.125rem;
   font-weight: 700;
@@ -79,5 +79,5 @@
 }
 
 .doneButton:hover {
-  background: #3182ce;
+  background: var(--color-btn-action-hover);
 }

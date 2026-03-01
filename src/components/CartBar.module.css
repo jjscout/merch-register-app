@@ -8,7 +8,7 @@
   justify-content: space-between;
   padding: 0 1.25rem;
   min-height: 64px;
-  background: #276749;
+  background: var(--color-cart-bar-bg);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -19,12 +19,12 @@
 }
 
 .bar:active {
-  background: #22543d;
+  background: var(--color-cart-bar-active);
 }
 
 .badge {
-  background: #fff;
-  color: #276749;
+  background: var(--color-cart-bar-badge-bg);
+  color: var(--color-cart-bar-badge-text);
   border-radius: 50%;
   width: 2rem;
   height: 2rem;

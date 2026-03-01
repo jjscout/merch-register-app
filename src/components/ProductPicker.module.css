@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-bg-overlay);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -12,7 +12,7 @@
   position: relative;
   width: 100%;
   max-width: 28rem;
-  background: #fff;
+  background: var(--color-bg-panel);
   border-radius: 1rem 1rem 0 0;
   padding: 1.5rem;
   display: flex;
@@ -29,7 +29,7 @@
   border: none;
   background: transparent;
   font-size: 1.5rem;
-  color: #718096;
+  color: var(--color-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -39,33 +39,33 @@
 }
 
 .closeButton:hover {
-  background: #f7fafc;
-  color: #1a202c;
+  background: var(--color-bg-hover);
+  color: var(--color-text-heading);
 }
 
 .productInfo {
   text-align: center;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .productName {
   margin: 0 0 0.25rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .unitPrice {
   font-size: 1.125rem;
-  color: #718096;
+  color: var(--color-text-muted);
 }
 
 .label {
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--color-text-label);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
@@ -85,11 +85,11 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  border: 2px solid #cbd5e0;
-  background: #fff;
+  border: 2px solid var(--color-stepper-border);
+  background: var(--color-bg-panel);
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--color-text-heading);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -99,12 +99,12 @@
 }
 
 .stepperButton:hover {
-  border-color: #4299e1;
-  color: #4299e1;
+  border-color: var(--color-stepper-hover);
+  color: var(--color-stepper-hover);
 }
 
 .stepperButton:active {
-  background: #ebf8ff;
+  background: var(--color-stepper-active-bg);
 }
 
 .quantityDisplay {
@@ -112,20 +112,20 @@
   font-weight: 700;
   min-width: 3rem;
   text-align: center;
-  color: #1a202c;
+  color: var(--color-text-heading);
 }
 
 .totalSection {
   text-align: center;
   padding: 1rem;
-  background: #f7fafc;
+  background: var(--color-bg-total);
   border-radius: 0.5rem;
 }
 
 .totalPrice {
   font-size: 2rem;
   font-weight: 700;
-  color: #2b6cb0;
+  color: var(--color-text-accent);
 }
 
 .actions {
@@ -137,7 +137,7 @@
   padding: 1rem;
   border: none;
   border-radius: 0.5rem;
-  background: #48bb78;
+  background: var(--color-btn-primary-bg);
   color: #fff;
   font-size: 1.125rem;
   font-weight: 700;
@@ -148,5 +148,5 @@
 }
 
 .addButton:hover {
-  background: #38a169;
+  background: var(--color-btn-primary-hover);
 }

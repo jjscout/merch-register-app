@@ -5,8 +5,8 @@
 }
 
 .error {
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--color-bg-error);
+  color: var(--color-text-error);
   padding: 0.75rem 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
@@ -16,7 +16,7 @@
 .loading {
   text-align: center;
   padding: 3rem 1rem;
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 1rem;
 }
 

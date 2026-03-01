@@ -10,7 +10,7 @@
 .heading {
   margin-bottom: 2rem;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--color-text-heading);
 }
 
 .grid {
@@ -25,9 +25,10 @@
   padding: 1.25rem 1rem;
   font-size: 1.125rem;
   font-weight: 600;
-  background: #f0f4ff;
-  border: 2px solid #d0d8f0;
+  background: var(--color-btn-category-bg);
+  border: 2px solid var(--color-btn-category-border);
   border-radius: 8px;
+  color: var(--color-text-heading);
   cursor: pointer;
   transition:
     background 0.15s,
@@ -36,10 +37,10 @@
 }
 
 .sellerButton:hover {
-  background: #dbe4ff;
-  border-color: #4299e1;
+  background: var(--color-btn-category-hover);
+  border-color: var(--color-border-active);
 }
 
 .sellerButton:active {
-  background: #c3d4ff;
+  background: var(--color-btn-category-active);
 }
