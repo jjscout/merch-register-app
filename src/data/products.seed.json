@@ -1,0 +1,95 @@
+{
+  "sellers": ["Alice", "Bob", "Charlie"],
+  "categories": [
+    {
+      "name": "T-Shirts",
+      "sort_order": 0,
+      "children": [
+        {
+          "name": "Men",
+          "sort_order": 0,
+          "children": [
+            {
+              "name": "T-Shirt",
+              "sort_order": 0,
+              "products": [
+                { "name": "S", "price_cents": 2500, "sort_order": 0 },
+                { "name": "M", "price_cents": 2500, "sort_order": 1 },
+                { "name": "L", "price_cents": 2500, "sort_order": 2 },
+                { "name": "XL", "price_cents": 2500, "sort_order": 3 }
+              ]
+            },
+            {
+              "name": "Tank Top",
+              "sort_order": 1,
+              "products": [
+                { "name": "S", "price_cents": 2000, "sort_order": 0 },
+                { "name": "M", "price_cents": 2000, "sort_order": 1 },
+                { "name": "L", "price_cents": 2000, "sort_order": 2 },
+                { "name": "XL", "price_cents": 2000, "sort_order": 3 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Women",
+          "sort_order": 1,
+          "children": [
+            {
+              "name": "T-Shirt",
+              "sort_order": 0,
+              "products": [
+                { "name": "S", "price_cents": 2500, "sort_order": 0 },
+                { "name": "M", "price_cents": 2500, "sort_order": 1 },
+                { "name": "L", "price_cents": 2500, "sort_order": 2 }
+              ]
+            },
+            {
+              "name": "Tank Top",
+              "sort_order": 1,
+              "products": [
+                { "name": "S", "price_cents": 2000, "sort_order": 0 },
+                { "name": "M", "price_cents": 2000, "sort_order": 1 },
+                { "name": "L", "price_cents": 2000, "sort_order": 2 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hoodies",
+      "sort_order": 1,
+      "children": [
+        {
+          "name": "Men",
+          "sort_order": 0,
+          "products": [
+            { "name": "S", "price_cents": 4500, "sort_order": 0 },
+            { "name": "M", "price_cents": 4500, "sort_order": 1 },
+            { "name": "L", "price_cents": 4500, "sort_order": 2 },
+            { "name": "XL", "price_cents": 4500, "sort_order": 3 }
+          ]
+        },
+        {
+          "name": "Women",
+          "sort_order": 1,
+          "products": [
+            { "name": "S", "price_cents": 4500, "sort_order": 0 },
+            { "name": "M", "price_cents": 4500, "sort_order": 1 },
+            { "name": "L", "price_cents": 4500, "sort_order": 2 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Accessories",
+      "sort_order": 2,
+      "products": [
+        { "name": "Hat", "price_cents": 1500, "sort_order": 0 },
+        { "name": "Tote Bag", "price_cents": 1200, "sort_order": 1 },
+        { "name": "Sticker Pack", "price_cents": 500, "sort_order": 2 }
+      ]
+    }
+  ]
+}

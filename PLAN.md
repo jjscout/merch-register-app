@@ -136,10 +136,10 @@ Step 1 (Scaffolding)
 
 ### Step 8: Seed Script + Data
 
-- [ ] Create `src/data/products.seed.json` with sample product tree
-- [ ] Create `scripts/seed.ts` — reads JSON, recursively inserts categories + products via service_role key
+- [x] Create `src/data/products.seed.json` with sample product tree
+- [x] Create `scripts/seed.ts` — reads JSON, recursively inserts categories + products via service_role key
 - [ ] Run seed script, verify data in Supabase dashboard
-- [ ] Commit: "feat: add product seed data and seed script"
+- [x] Commit: "feat: add product seed data and seed script"
 
 ### Step 9: E2E Tests
 
