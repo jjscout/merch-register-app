@@ -30,7 +30,7 @@ CREATE TABLE products (
   id             UUID        DEFAULT gen_random_uuid() PRIMARY KEY,
   category_id    UUID        NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
   name           TEXT        NOT NULL,
-  price_cents    INT         NOT NULL CHECK (price_cents >= 0),
+  price_cents    INT         NOT NULL CHECK (price_cents > 0),
   active         BOOLEAN     NOT NULL DEFAULT true,
   sort_order     INT         NOT NULL DEFAULT 0,
   created_at     TIMESTAMPTZ DEFAULT now()
