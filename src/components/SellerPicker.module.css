@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+  padding: 2rem;
+}
+
+.heading {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.sellerButton {
+  padding: 1.25rem 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: #f0f4ff;
+  border: 2px solid #d0d8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  touch-action: manipulation;
+}
+
+.sellerButton:hover {
+  background: #dbe4ff;
+  border-color: #4299e1;
+}
+
+.sellerButton:active {
+  background: #c3d4ff;
+}

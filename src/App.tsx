@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { isSupabaseConfigured } from './lib/supabase';
 import { useSellers } from './hooks/useSellers';
 import { SalesPage } from './pages/SalesPage';
+import { SellerPicker } from './components/SellerPicker';
 import styles from './App.module.css';
 
 const SELLER_STORAGE_KEY = 'merch-register-seller-id';
@@ -12,20 +13,26 @@ function App() {
     return localStorage.getItem(SELLER_STORAGE_KEY) ?? '';
   });
 
-  // Derive the effective seller ID: use stored if valid, otherwise first seller
+  // Validate stored seller against fetched list
   const sellerId =
     sellers.length > 0 && sellers.find((s) => s.id === storedSellerId)
       ? storedSellerId
-      : (sellers[0]?.id ?? '');
+      : '';
 
   useEffect(() => {
     if (sellerId) {
       localStorage.setItem(SELLER_STORAGE_KEY, sellerId);
+    } else {
+      localStorage.removeItem(SELLER_STORAGE_KEY);
     }
   }, [sellerId]);
 
-  const handleSellerChange = (id: string) => {
+  const handleSellerSelect = (id: string) => {
     setStoredSellerId(id);
+  };
+
+  const handleChangeSeller = () => {
+    setStoredSellerId('');
   };
 
   if (!isSupabaseConfigured) {
@@ -70,23 +77,34 @@ function App() {
     );
   }
 
+  if (!sellerId) {
+    return (
+      <div className={styles.app}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Merch Register</h1>
+        </header>
+        <main>
+          <SellerPicker sellers={sellers} onSelect={handleSellerSelect} />
+        </main>
+      </div>
+    );
+  }
+
+  const sellerName = sellers.find((s) => s.id === sellerId)?.name ?? '';
+
   return (
     <div className={styles.app}>
       <header className={styles.header}>
         <h1 className={styles.title}>Merch Register</h1>
-        <div className={styles.sellerPicker}>
-          <label htmlFor="seller-select">Seller:</label>
-          <select
-            id="seller-select"
-            value={sellerId}
-            onChange={(e) => handleSellerChange(e.target.value)}
+        <div className={styles.sellerInfo}>
+          <span className={styles.sellerName}>{sellerName}</span>
+          <button
+            type="button"
+            className={styles.changeSeller}
+            onClick={handleChangeSeller}
           >
-            {sellers.map((seller) => (
-              <option key={seller.id} value={seller.id}>
-                {seller.name}
-              </option>
-            ))}
-          </select>
+            Change Seller
+          </button>
         </div>
       </header>
       <main>
