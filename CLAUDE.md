@@ -29,7 +29,7 @@ Pre-commit hook (Husky + lint-staged): runs `eslint --fix`, `prettier --write`, 
 - **Prices in integer cents** (2500 = $25.00). Convert at display boundary only via `formatCents()`.
 - **Adjacency-list tree:** Categories have nullable `parent_id`. Fetched one level at a time as user drills down.
 - **Snapshot pricing:** `unit_price_cents` on `sales` table captures price at sale time.
-- **Data hooks** (`src/hooks/`) isolate all Supabase queries. Each returns `{ data, loading, error }`.
+- **Data hooks** (`src/hooks/`) isolate all Supabase queries. Each returns `{ <domain>, loading, error }` (e.g. `{ categories, loading, error }`).
 - **Graceful fallback:** If `VITE_SUPABASE_URL` is unset, the app shows setup instructions instead of crashing.
 
 ### Data flow
