@@ -15,16 +15,12 @@ vi.mock('../lib/supabase', () => ({
 }));
 
 const makeCartItem = (id: string, priceCents: number, qty: number) => ({
-  product: {
-    id,
-    category_id: 'cat-1',
-    name: `Product ${id}`,
-    price_cents: priceCents,
-    active: true,
-    sort_order: 0,
-    created_at: '2025-01-01T00:00:00Z',
-  },
+  product_id: id,
+  product_name: `Product ${id}`,
+  unit_price_cents: priceCents,
   quantity: qty,
+  product_variant_id: null,
+  variant_display_name: null,
 });
 
 describe('useRecordCart', () => {
@@ -62,6 +58,8 @@ describe('useRecordCart', () => {
       unit_price_cents: 2500,
       payment_method: 'cash',
       event_id: null,
+      product_variant_id: null,
+      variant_display_name: null,
     });
     expect(rows[1]).toMatchObject({
       product_id: 'p2',

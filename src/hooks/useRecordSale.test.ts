@@ -31,6 +31,8 @@ describe('useRecordSale', () => {
       unit_price_cents: 2500,
       payment_method: 'cash' as const,
       sold_at: '2024-01-01T00:00:00Z',
+      product_variant_id: null,
+      variant_display_name: null,
     };
     const returnedSale = { id: 'sale-1', ...saleData };
     mockSelectSingle.mockResolvedValue({ data: returnedSale, error: null });
@@ -64,6 +66,8 @@ describe('useRecordSale', () => {
         unit_price_cents: 1000,
         payment_method: 'card',
         sold_at: new Date().toISOString(),
+        product_variant_id: null,
+        variant_display_name: null,
       });
     });
 
@@ -92,6 +96,8 @@ describe('useRecordSale', () => {
         unit_price_cents: 1000,
         payment_method: 'cash',
         sold_at: new Date().toISOString(),
+        product_variant_id: null,
+        variant_display_name: null,
       });
     });
 

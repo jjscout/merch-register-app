@@ -10,16 +10,12 @@ const makeItem = (
   priceCents: number,
   qty: number,
 ): CartItem => ({
-  product: {
-    id,
-    category_id: 'cat-1',
-    name,
-    price_cents: priceCents,
-    active: true,
-    sort_order: 0,
-    created_at: '2025-01-01T00:00:00Z',
-  },
+  product_id: id,
+  product_name: name,
+  unit_price_cents: priceCents,
   quantity: qty,
+  product_variant_id: null,
+  variant_display_name: null,
 });
 
 describe('CartReview', () => {
@@ -58,7 +54,7 @@ describe('CartReview', () => {
     await user.click(
       screen.getByRole('button', { name: /increase quantity of T-Shirt/i }),
     );
-    expect(onUpdateItem).toHaveBeenCalledWith('p1', 3);
+    expect(onUpdateItem).toHaveBeenCalledWith('p1', 3, null);
   });
 
   it('calls onUpdateItem when quantity is decreased', async () => {
@@ -69,7 +65,7 @@ describe('CartReview', () => {
     await user.click(
       screen.getByRole('button', { name: /decrease quantity of T-Shirt/i }),
     );
-    expect(onUpdateItem).toHaveBeenCalledWith('p1', 1);
+    expect(onUpdateItem).toHaveBeenCalledWith('p1', 1, null);
   });
 
   it('does not decrease below 1', async () => {
@@ -93,7 +89,7 @@ describe('CartReview', () => {
 
     const removeButtons = screen.getAllByRole('button', { name: /remove/i });
     await user.click(removeButtons[0]);
-    expect(onRemoveItem).toHaveBeenCalledWith('p1');
+    expect(onRemoveItem).toHaveBeenCalledWith('p1', null);
   });
 
   it('calls onCheckout when checkout button clicked', async () => {

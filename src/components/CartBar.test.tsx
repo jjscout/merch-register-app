@@ -5,16 +5,12 @@ import { CartBar } from './CartBar';
 import type { CartItem } from '../lib/types';
 
 const makeItem = (id: string, priceCents: number, qty: number): CartItem => ({
-  product: {
-    id,
-    category_id: 'cat-1',
-    name: `Product ${id}`,
-    price_cents: priceCents,
-    active: true,
-    sort_order: 0,
-    created_at: '2025-01-01T00:00:00Z',
-  },
+  product_id: id,
+  product_name: `Product ${id}`,
+  unit_price_cents: priceCents,
   quantity: qty,
+  product_variant_id: null,
+  variant_display_name: null,
 });
 
 describe('CartBar', () => {

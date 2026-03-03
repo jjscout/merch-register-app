@@ -7,7 +7,7 @@ export function formatCents(cents: number): string {
 
 export function cartTotalCents(cart: CartItem[]): number {
   return cart.reduce(
-    (sum, item) => sum + item.quantity * item.product.price_cents,
+    (sum, item) => sum + item.quantity * item.unit_price_cents,
     0,
   );
 }

@@ -4,8 +4,12 @@ import styles from './CartReview.module.css';
 
 interface CartReviewProps {
   cart: CartItem[];
-  onUpdateItem: (productId: string, quantity: number) => void;
-  onRemoveItem: (productId: string) => void;
+  onUpdateItem: (
+    productId: string,
+    quantity: number,
+    variantId?: string | null,
+  ) => void;
+  onRemoveItem: (productId: string, variantId?: string | null) => void;
   onCheckout: () => void;
   onContinueShopping: () => void;
 }
@@ -24,43 +28,58 @@ export function CartReview({
       <h2 className={styles.heading}>Cart</h2>
 
       <ul className={styles.itemList}>
-        {cart.map(({ product, quantity }) => (
-          <li key={product.id} className={styles.item}>
+        {cart.map((item) => (
+          <li
+            key={`${item.product_id}::${item.product_variant_id ?? ''}`}
+            className={styles.item}
+          >
             <div className={styles.itemInfo}>
-              <span className={styles.itemName}>{product.name}</span>
+              <span className={styles.itemName}>{item.product_name}</span>
               <span className={styles.itemUnit}>
-                {formatCents(product.price_cents)} each
+                {formatCents(item.unit_price_cents)} each
               </span>
             </div>
             <div className={styles.itemControls}>
               <button
                 type="button"
                 className={styles.stepperButton}
-                disabled={quantity <= 1}
-                onClick={() => onUpdateItem(product.id, quantity - 1)}
-                aria-label={`Decrease quantity of ${product.name}`}
+                disabled={item.quantity <= 1}
+                onClick={() =>
+                  onUpdateItem(
+                    item.product_id,
+                    item.quantity - 1,
+                    item.product_variant_id,
+                  )
+                }
+                aria-label={`Decrease quantity of ${item.product_name}`}
               >
                 -
               </button>
-              <span className={styles.quantity}>{quantity}</span>
+              <span className={styles.quantity}>{item.quantity}</span>
               <button
                 type="button"
                 className={styles.stepperButton}
                 onClick={() =>
-                  onUpdateItem(product.id, Math.min(999, quantity + 1))
+                  onUpdateItem(
+                    item.product_id,
+                    Math.min(999, item.quantity + 1),
+                    item.product_variant_id,
+                  )
                 }
-                aria-label={`Increase quantity of ${product.name}`}
+                aria-label={`Increase quantity of ${item.product_name}`}
               >
                 +
               </button>
               <span className={styles.itemTotal}>
-                {formatCents(quantity * product.price_cents)}
+                {formatCents(item.quantity * item.unit_price_cents)}
               </span>
               <button
                 type="button"
                 className={styles.removeButton}
-                onClick={() => onRemoveItem(product.id)}
-                aria-label={`Remove ${product.name}`}
+                onClick={() =>
+                  onRemoveItem(item.product_id, item.product_variant_id)
+                }
+                aria-label={`Remove ${item.product_name}`}
               >
                 &times;
               </button>

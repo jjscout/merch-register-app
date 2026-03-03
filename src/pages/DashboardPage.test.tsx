@@ -114,6 +114,8 @@ describe('DashboardPage', () => {
           unit_price_cents: 2500,
           payment_method: 'cash',
           sold_at: '2025-06-01T12:00:00Z',
+          product_variant_id: null,
+          variant_display_name: null,
         },
       ],
       loading: false,

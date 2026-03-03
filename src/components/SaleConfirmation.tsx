@@ -21,11 +21,15 @@ export function SaleConfirmation({
       <h2 className={styles.heading}>Sale Recorded!</h2>
 
       <dl className={styles.summary}>
-        {items.map(({ product, quantity }) => (
-          <div key={product.id} className={styles.row}>
-            <dt>{product.name}</dt>
+        {items.map((item) => (
+          <div
+            key={`${item.product_id}::${item.product_variant_id ?? ''}`}
+            className={styles.row}
+          >
+            <dt>{item.product_name}</dt>
             <dd>
-              x{quantity} &mdash; {formatCents(quantity * product.price_cents)}
+              x{item.quantity} &mdash;{' '}
+              {formatCents(item.quantity * item.unit_price_cents)}
             </dd>
           </div>
         ))}

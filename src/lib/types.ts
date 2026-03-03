@@ -34,9 +34,58 @@ export interface MerchEvent {
   created_at: string;
 }
 
+export interface VariantDimension {
+  id: string;
+  product_id: string;
+  name: string;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface VariantValue {
+  id: string;
+  dimension_id: string;
+  value: string;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface ProductVariant {
+  id: string;
+  product_id: string;
+  display_name: string;
+  price_cents: number;
+  active: boolean;
+  created_at: string;
+}
+
+export interface ProductVariantValue {
+  variant_id: string;
+  value_id: string;
+}
+
+export interface ProductCatalogEntry {
+  product_id: string;
+  product_name: string;
+  category_id: string;
+  base_price_cents: number;
+  active: boolean;
+  variant_id: string | null;
+  variant_display_name: string | null;
+  variant_price_cents: number | null;
+  dimensions: Array<{
+    dimension_name: string;
+    value_name: string;
+  }> | null;
+}
+
 export interface CartItem {
-  product: Product;
+  product_id: string;
+  product_name: string;
+  unit_price_cents: number;
   quantity: number;
+  product_variant_id: string | null;
+  variant_display_name: string | null;
 }
 
 export interface Sale {
@@ -48,6 +97,8 @@ export interface Sale {
   unit_price_cents: number;
   payment_method: PaymentMethod;
   sold_at: string;
+  product_variant_id: string | null;
+  variant_display_name: string | null;
 }
 
 export interface Database {
@@ -78,8 +129,32 @@ export interface Database {
         Insert: Omit<MerchEvent, 'id' | 'created_at'>;
         Update: Partial<Omit<MerchEvent, 'id' | 'created_at'>>;
       };
+      variant_dimensions: {
+        Row: VariantDimension;
+        Insert: Omit<VariantDimension, 'id' | 'created_at'>;
+        Update: Partial<Omit<VariantDimension, 'id' | 'created_at'>>;
+      };
+      variant_values: {
+        Row: VariantValue;
+        Insert: Omit<VariantValue, 'id' | 'created_at'>;
+        Update: Partial<Omit<VariantValue, 'id' | 'created_at'>>;
+      };
+      product_variants: {
+        Row: ProductVariant;
+        Insert: Omit<ProductVariant, 'id' | 'created_at'>;
+        Update: Partial<Omit<ProductVariant, 'id' | 'created_at'>>;
+      };
+      product_variant_values: {
+        Row: ProductVariantValue;
+        Insert: ProductVariantValue;
+        Update: Partial<ProductVariantValue>;
+      };
     };
-    Views: Record<string, never>;
+    Views: {
+      product_catalog_view: {
+        Row: ProductCatalogEntry;
+      };
+    };
     Functions: Record<string, never>;
   };
 }

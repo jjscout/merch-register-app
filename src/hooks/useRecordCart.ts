@@ -28,13 +28,15 @@ export function useRecordCart() {
 
     try {
       const rows = payload.cart.map((item) => ({
-        product_id: item.product.id,
+        product_id: item.product_id,
         seller_id: payload.sellerId,
         quantity: item.quantity,
-        unit_price_cents: item.product.price_cents,
+        unit_price_cents: item.unit_price_cents,
         payment_method: payload.paymentMethod,
         sold_at: soldAt,
         event_id: payload.eventId ?? null,
+        product_variant_id: item.product_variant_id,
+        variant_display_name: item.variant_display_name,
       }));
 
       const { data, error: err } = await supabase

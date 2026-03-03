@@ -10,16 +10,12 @@ const makeItem = (
   priceCents: number,
   qty: number,
 ): CartItem => ({
-  product: {
-    id,
-    category_id: 'cat-1',
-    name,
-    price_cents: priceCents,
-    active: true,
-    sort_order: 0,
-    created_at: '2025-01-01T00:00:00Z',
-  },
+  product_id: id,
+  product_name: name,
+  unit_price_cents: priceCents,
   quantity: qty,
+  product_variant_id: null,
+  variant_display_name: null,
 });
 
 describe('SaleConfirmation', () => {

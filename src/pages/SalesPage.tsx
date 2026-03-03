@@ -13,6 +13,10 @@ import { CartCheckout } from '../components/CartCheckout';
 import { SaleConfirmation } from '../components/SaleConfirmation';
 import styles from './SalesPage.module.css';
 
+function cartItemKey(item: CartItem): string {
+  return `${item.product_id}::${item.product_variant_id ?? ''}`;
+}
+
 type PathSegment = { id: string | null; name: string };
 
 type State =
@@ -47,11 +51,27 @@ type Action =
   | { type: 'NAVIGATE_TO'; categoryId: string | null }
   | { type: 'SELECT_PRODUCT'; product: Product }
   | { type: 'DISMISS_PICKER' }
-  | { type: 'ADD_TO_CART'; product: Product; quantity: number }
+  | {
+      type: 'ADD_TO_CART';
+      product: Product;
+      quantity: number;
+      variantId?: string | null;
+      variantDisplayName?: string | null;
+      variantPriceCents?: number | null;
+    }
   | { type: 'OPEN_CART' }
   | { type: 'CLOSE_CART' }
-  | { type: 'UPDATE_CART_ITEM'; productId: string; quantity: number }
-  | { type: 'REMOVE_CART_ITEM'; productId: string }
+  | {
+      type: 'UPDATE_CART_ITEM';
+      productId: string;
+      variantId?: string | null;
+      quantity: number;
+    }
+  | {
+      type: 'REMOVE_CART_ITEM';
+      productId: string;
+      variantId?: string | null;
+    }
   | { type: 'PROCEED_TO_CHECKOUT' }
   | { type: 'BACK_TO_CART' }
   | { type: 'CHECKOUT_COMPLETE'; paymentMethod: PaymentMethod }
@@ -104,15 +124,23 @@ function reducer(state: State, action: Action): State {
     }
     case 'ADD_TO_CART': {
       if (state.phase !== 'BROWSING') return state;
+      const variantId = action.variantId ?? null;
+      const newItem: CartItem = {
+        product_id: action.product.id,
+        product_name: action.product.name,
+        unit_price_cents:
+          action.variantPriceCents ?? action.product.price_cents,
+        quantity: action.quantity,
+        product_variant_id: variantId,
+        variant_display_name: action.variantDisplayName ?? null,
+      };
+      const itemKey = cartItemKey(newItem);
       const existing = state.cart.findIndex(
-        (item) => item.product.id === action.product.id,
+        (item) => cartItemKey(item) === itemKey,
       );
       const newCart =
         existing === -1
-          ? [
-              ...state.cart,
-              { product: action.product, quantity: action.quantity },
-            ]
+          ? [...state.cart, newItem]
           : state.cart.map((item, i) =>
               i === existing ? { ...item, quantity: action.quantity } : item,
             );
@@ -140,10 +168,12 @@ function reducer(state: State, action: Action): State {
     case 'UPDATE_CART_ITEM': {
       if (state.phase !== 'CART_REVIEW') return state;
       const clampedQty = Math.max(1, Math.min(999, action.quantity));
+      const targetVariantId = action.variantId ?? null;
       return {
         ...state,
         cart: state.cart.map((item) =>
-          item.product.id === action.productId
+          item.product_id === action.productId &&
+          item.product_variant_id === targetVariantId
             ? { ...item, quantity: clampedQty }
             : item,
         ),
@@ -151,8 +181,13 @@ function reducer(state: State, action: Action): State {
     }
     case 'REMOVE_CART_ITEM': {
       if (state.phase !== 'CART_REVIEW') return state;
+      const removeVariantId = action.variantId ?? null;
       const newCart = state.cart.filter(
-        (item) => item.product.id !== action.productId,
+        (item) =>
+          !(
+            item.product_id === action.productId &&
+            item.product_variant_id === removeVariantId
+          ),
       );
       if (newCart.length === 0) {
         return {
@@ -275,11 +310,16 @@ export function SalesPage({ sellerId, eventId }: SalesPageProps) {
       <div className={styles.page}>
         <CartReview
           cart={state.cart}
-          onUpdateItem={(productId, quantity) =>
-            dispatch({ type: 'UPDATE_CART_ITEM', productId, quantity })
+          onUpdateItem={(productId, quantity, variantId) =>
+            dispatch({
+              type: 'UPDATE_CART_ITEM',
+              productId,
+              quantity,
+              variantId,
+            })
           }
-          onRemoveItem={(productId) =>
-            dispatch({ type: 'REMOVE_CART_ITEM', productId })
+          onRemoveItem={(productId, variantId) =>
+            dispatch({ type: 'REMOVE_CART_ITEM', productId, variantId })
           }
           onCheckout={() => dispatch({ type: 'PROCEED_TO_CHECKOUT' })}
           onContinueShopping={() => dispatch({ type: 'CLOSE_CART' })}
@@ -289,9 +329,13 @@ export function SalesPage({ sellerId, eventId }: SalesPageProps) {
   }
 
   // BROWSING phase
+  // TODO: When variant selection is added, pass variantId here too
   const existingCartQty = state.selectedProduct
-    ? (state.cart.find((i) => i.product.id === state.selectedProduct!.id)
-        ?.quantity ?? 0)
+    ? (state.cart.find(
+        (i) =>
+          i.product_id === state.selectedProduct!.id &&
+          i.product_variant_id === null,
+      )?.quantity ?? 0)
     : 0;
 
   return (

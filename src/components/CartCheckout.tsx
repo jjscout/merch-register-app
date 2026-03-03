@@ -27,11 +27,15 @@ export function CartCheckout({
       <h2 className={styles.heading}>Checkout</h2>
 
       <ul className={styles.itemList}>
-        {cart.map(({ product, quantity }) => (
-          <li key={product.id} className={styles.item}>
-            <span className={styles.itemName}>{product.name}</span>
+        {cart.map((item) => (
+          <li
+            key={`${item.product_id}::${item.product_variant_id ?? ''}`}
+            className={styles.item}
+          >
+            <span className={styles.itemName}>{item.product_name}</span>
             <span className={styles.itemDetail}>
-              x{quantity} &mdash; {formatCents(quantity * product.price_cents)}
+              x{item.quantity} &mdash;{' '}
+              {formatCents(item.quantity * item.unit_price_cents)}
             </span>
           </li>
         ))}
