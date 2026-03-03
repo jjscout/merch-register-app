@@ -1,126 +1,141 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import App from './App';
-
-const mockSellers = [
-  { id: 'seller-1', name: 'Alice', pin: '1111', created_at: '2024-01-01' },
-  { id: 'seller-2', name: 'Bob', pin: '2222', created_at: '2024-01-01' },
-];
 
 vi.mock('./lib/supabase', () => ({
   isSupabaseConfigured: true,
   supabase: {},
 }));
 
-vi.mock('./hooks/useSellers', () => ({
-  useSellers: vi.fn(() => ({
-    sellers: mockSellers,
+vi.mock('./hooks/useActiveEvent', () => ({
+  useActiveEvent: vi.fn(() => ({
+    event: {
+      id: 'event-1',
+      name: 'Test Event',
+      starts_at: '2025-01-01',
+      ends_at: '2026-12-31',
+      active: true,
+      created_at: '2025-01-01',
+    },
     loading: false,
     error: null,
   })),
 }));
 
-vi.mock('./pages/SalesPage', () => ({
-  SalesPage: ({ sellerId }: { sellerId: string }) => (
-    <div data-testid="sales-page">SalesPage:{sellerId}</div>
-  ),
+vi.mock('./hooks/useSellerByPin', () => ({
+  useSellerByPin: vi.fn(() => ({
+    lookupByPin: vi.fn(),
+    loading: false,
+    error: null,
+  })),
+}));
+
+vi.mock('./hooks/useEvents', () => ({
+  useEvents: vi.fn(() => ({
+    events: [],
+    loading: false,
+    error: null,
+  })),
+}));
+
+vi.mock('./hooks/useEventSales', () => ({
+  useEventSales: vi.fn(() => ({
+    sales: [],
+    loading: false,
+    error: null,
+  })),
+}));
+
+vi.mock('./hooks/useTheme', () => ({
+  useTheme: vi.fn(() => ({
+    theme: 'system' as const,
+    resolvedTheme: 'light' as const,
+    toggleTheme: vi.fn(),
+  })),
 }));
 
 describe('App', () => {
+  let matchMediaListeners: Array<(e: { matches: boolean }) => void>;
+
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
-  });
-
-  it('shows the seller picker when no seller is stored', () => {
-    render(<App />);
-
-    expect(
-      screen.getByRole('heading', { name: /select.+seller/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Alice' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Bob' })).toBeInTheDocument();
-    expect(screen.queryByTestId('sales-page')).not.toBeInTheDocument();
-  });
-
-  it('transitions to the sales page after selecting a seller', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.click(screen.getByRole('button', { name: 'Bob' }));
-
-    expect(screen.getByTestId('sales-page')).toHaveTextContent(
-      'SalesPage:seller-2',
+    matchMediaListeners = [];
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((query: string) => ({
+        matches: query.includes('dark') ? false : false,
+        media: query,
+        addEventListener: (_: string, cb: (e: { matches: boolean }) => void) =>
+          matchMediaListeners.push(cb),
+        removeEventListener: vi.fn(),
+      })),
     );
-    expect(
-      screen.queryByRole('heading', { name: /select.+seller/i }),
-    ).not.toBeInTheDocument();
   });
 
-  it('shows the seller name in the header after selection', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.click(screen.getByRole('button', { name: 'Alice' }));
-
-    expect(screen.getByText('Alice')).toBeInTheDocument();
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
-  it('shows a Change Seller button in the header', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.click(screen.getByRole('button', { name: 'Alice' }));
-
-    expect(
-      screen.getByRole('button', { name: /change seller/i }),
-    ).toBeInTheDocument();
-  });
-
-  it('returns to the seller picker when Change Seller is clicked', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.click(screen.getByRole('button', { name: 'Alice' }));
-    await user.click(screen.getByRole('button', { name: /change seller/i }));
-
-    expect(
-      screen.getByRole('heading', { name: /select.+seller/i }),
-    ).toBeInTheDocument();
-    expect(screen.queryByTestId('sales-page')).not.toBeInTheDocument();
-  });
-
-  it('does not show a seller dropdown select element', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.click(screen.getByRole('button', { name: 'Alice' }));
-
-    expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
-  });
-
-  it('clears localStorage when Change Seller is clicked', async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.click(screen.getByRole('button', { name: 'Alice' }));
-    await user.click(screen.getByRole('button', { name: /change seller/i }));
-
-    expect(localStorage.getItem('merch-register-seller-id')).toBeNull();
-  });
-
-  it('remembers the seller across renders when stored in localStorage', () => {
-    localStorage.setItem('merch-register-seller-id', 'seller-2');
-
-    render(<App />);
-
-    // Should skip the picker and go straight to sales page
-    expect(screen.getByTestId('sales-page')).toHaveTextContent(
-      'SalesPage:seller-2',
+  it('renders the app with header and navigation', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
     );
+
     expect(
-      screen.queryByRole('heading', { name: /select.+seller/i }),
-    ).not.toBeInTheDocument();
+      screen.getByRole('heading', { name: 'Merch Register' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Sales' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Admin' })).toBeInTheDocument();
+  });
+
+  it('renders theme toggle', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('button', { name: /theme/i })).toBeInTheDocument();
+  });
+
+  it('renders seller PIN login on sales route when no seller stored', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole('heading', { name: /enter your pin/i }),
+    ).toBeInTheDocument();
+  });
+
+  it('renders dashboard route', () => {
+    render(
+      <MemoryRouter initialEntries={['/dashboard']}>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole('heading', { name: /event summary/i }),
+    ).toBeInTheDocument();
+  });
+
+  it('renders admin route with PIN gate', () => {
+    render(
+      <MemoryRouter initialEntries={['/admin']}>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole('heading', { name: /admin access/i }),
+    ).toBeInTheDocument();
   });
 });

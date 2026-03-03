@@ -1,116 +1,18 @@
-import { useState, useEffect } from 'react';
-import { isSupabaseConfigured } from './lib/supabase';
-import { useSellers } from './hooks/useSellers';
-import { SalesPage } from './pages/SalesPage';
-import { SellerPicker } from './components/SellerPicker';
-import styles from './App.module.css';
-
-const SELLER_STORAGE_KEY = 'merch-register-seller-id';
+import { Routes, Route } from 'react-router-dom';
+import { AppLayout } from './components/AppLayout';
+import { SalesRoute } from './pages/SalesRoute';
+import { DashboardPage } from './pages/DashboardPage';
+import { AdminPage } from './pages/AdminPage';
 
 function App() {
-  const { sellers, loading } = useSellers();
-  const [storedSellerId, setStoredSellerId] = useState<string>(() => {
-    return localStorage.getItem(SELLER_STORAGE_KEY) ?? '';
-  });
-
-  // Validate stored seller against fetched list
-  const sellerId =
-    sellers.length > 0 && sellers.find((s) => s.id === storedSellerId)
-      ? storedSellerId
-      : '';
-
-  useEffect(() => {
-    if (sellerId) {
-      localStorage.setItem(SELLER_STORAGE_KEY, sellerId);
-    } else {
-      localStorage.removeItem(SELLER_STORAGE_KEY);
-    }
-  }, [sellerId]);
-
-  const handleSellerSelect = (id: string) => {
-    setStoredSellerId(id);
-  };
-
-  const handleChangeSeller = () => {
-    setStoredSellerId('');
-  };
-
-  if (!isSupabaseConfigured) {
-    return (
-      <div className={styles.app}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Merch Register</h1>
-        </header>
-        <main>
-          <div className={styles.setup}>
-            <h2>Setup Required</h2>
-            <p>Supabase is not configured. To get started:</p>
-            <ol>
-              <li>Create a Supabase project at supabase.com</li>
-              <li>
-                Run the migration SQL from <code>supabase/migrations/</code>
-              </li>
-              <li>
-                Copy <code>.env.example</code> to <code>.env</code> and fill in
-                your credentials
-              </li>
-              <li>
-                Run <code>npm run seed</code> to populate data
-              </li>
-              <li>Restart the dev server</li>
-            </ol>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
-
-  if (sellers.length === 0) {
-    return (
-      <div className={styles.loading}>
-        No sellers configured. Run the seed script first.
-      </div>
-    );
-  }
-
-  if (!sellerId) {
-    return (
-      <div className={styles.app}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Merch Register</h1>
-        </header>
-        <main>
-          <SellerPicker sellers={sellers} onSelect={handleSellerSelect} />
-        </main>
-      </div>
-    );
-  }
-
-  const sellerName = sellers.find((s) => s.id === sellerId)?.name ?? '';
-
   return (
-    <div className={styles.app}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Merch Register</h1>
-        <div className={styles.sellerInfo}>
-          <span className={styles.sellerName}>{sellerName}</span>
-          <button
-            type="button"
-            className={styles.changeSeller}
-            onClick={handleChangeSeller}
-          >
-            Change Seller
-          </button>
-        </div>
-      </header>
-      <main>
-        <SalesPage key={sellerId} sellerId={sellerId} />
-      </main>
-    </div>
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route index element={<SalesRoute />} />
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="admin/*" element={<AdminPage />} />
+      </Route>
+    </Routes>
   );
 }
 

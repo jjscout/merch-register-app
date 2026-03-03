@@ -1,0 +1,70 @@
+.page {
+  display: flex;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+  gap: 1.5rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.navLink {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-label);
+  text-decoration: none;
+  border-radius: 6px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.navLink:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-heading);
+}
+
+.active {
+  background: var(--color-btn-category-bg);
+  color: var(--color-text-heading);
+}
+
+.lockButton {
+  margin-top: 1rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  background: var(--color-btn-danger-bg);
+  color: var(--color-btn-danger-text);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.lockButton:hover {
+  background: var(--color-btn-danger-hover);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .page {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+}

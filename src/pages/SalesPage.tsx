@@ -201,9 +201,10 @@ function reducer(state: State, action: Action): State {
 
 interface SalesPageProps {
   sellerId: string;
+  eventId?: string;
 }
 
-export function SalesPage({ sellerId }: SalesPageProps) {
+export function SalesPage({ sellerId, eventId }: SalesPageProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const browsingCategoryId =
@@ -234,6 +235,7 @@ export function SalesPage({ sellerId }: SalesPageProps) {
       cart: state.cart,
       sellerId,
       paymentMethod,
+      eventId,
     });
 
     if (result) {
